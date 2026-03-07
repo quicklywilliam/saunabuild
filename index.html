@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Building a Wood-Fired Sauna — A Complete Guide</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Source+Sans+3:wght@300;400;600;700&family=JetBrains+Mono:wght@400&display=swap');
+
+  :root {
+    --warm-bg: #1a1410;
+    --warm-bg-light: #231c15;
+    --warm-bg-card: #2a2118;
+    --warm-border: #3d3024;
+    --warm-accent: #c4813a;
+    --warm-accent-light: #d4a06a;
+    --warm-accent-glow: rgba(196, 129, 58, 0.15);
+    --text-primary: #e8ddd0;
+    --text-secondary: #b8a898;
+    --text-muted: #8a7a6a;
+    --cedar: #a0522d;
+    --cedar-light: #c47a4a;
+    --fire: #e25822;
+    --fire-glow: rgba(226, 88, 34, 0.1);
+    --steam: rgba(255,255,255,0.06);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Source Sans 3', -apple-system, sans-serif;
+    background: var(--warm-bg);
+    color: var(--text-primary);
+    line-height: 1.7;
+    font-weight: 300;
+    font-size: 17px;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ─── Hero ─── */
+  .hero {
+    height: 200vh;
+    position: relative;
+  }
+  .hero-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: url('photos/IMG_0979.jpeg') center/cover no-repeat;
+    z-index: -1;
+  }
+  .hero-content {
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    text-align: center;
+    padding: 2rem 2rem 4rem;
+  }
+  .hero-content::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10, 8, 5, 0.85) 0%, rgba(10, 8, 5, 0.3) 40%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--warm-accent);
+    background: var(--warm-accent-glow);
+    border: 1px solid rgba(196,129,58,0.3);
+    padding: 0.5rem 1.5rem;
+    border-radius: 100px;
+    margin-bottom: 2.5rem;
+  }
+  .hero-content > * { position: relative; z-index: 1; }
+  .hero h1 {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: none;
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.8rem, 5.5vw, 5rem);
+    white-space: nowrap;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    max-width: 900px;
+    color: #fff;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.7), 0 1px 4px rgba(0,0,0,0.9);
+  }
+  .hero-subtitle {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    max-width: 650px;
+    margin-bottom: 3rem;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.8);
+    opacity: 0;
+    transform: translateY(20px);
+    transition: none;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    flex-wrap: wrap;
+    justify-content: center;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.8);
+  }
+  .hero-meta span { display: flex; align-items: center; gap: 0.5rem; }
+  .hero-meta .dot {
+    width: 6px; height: 6px;
+    background: var(--warm-accent);
+    border-radius: 50%;
+  }
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--text-muted);
+    font-size: 0.75rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    animation: float 3s ease-in-out infinite;
+    z-index: 1;
+  }
+  .scroll-hint svg { opacity: 0.4; }
+  @keyframes float {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* ─── Navigation ─── */
+  .page-body {
+    position: relative;
+    z-index: 1;
+    background: var(--warm-bg);
+  }
+  .toc {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(26,20,16,0.92);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--warm-border);
+    overflow-x: auto;
+  }
+  .toc-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding: 0 1rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .toc-inner::-webkit-scrollbar { display: none; }
+  .toc a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.75rem;
+    padding: 1rem 0.85rem;
+    white-space: nowrap;
+    transition: color 0.2s;
+    letter-spacing: 0.03em;
+    border-bottom: 2px solid transparent;
+  }
+  .toc a:hover {
+    color: var(--warm-accent);
+    border-bottom-color: var(--warm-accent);
+  }
+
+  /* ─── Content ─── */
+  .content { max-width: 900px; margin: 0 auto; padding: 0 2rem; }
+
+  /* ─── Sections ─── */
+  .section {
+    padding: 6rem 0;
+    border-bottom: 1px solid var(--warm-border);
+  }
+  .section:last-child { border-bottom: none; }
+
+  .section-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--warm-accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: block;
+  }
+  .section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 2.8rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .section-intro {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 3rem;
+    max-width: 700px;
+  }
+  .section p { margin-bottom: 1.2rem; color: var(--text-secondary); }
+  .section h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    margin: 2.5rem 0 1rem;
+    color: var(--text-primary);
+  }
+  .section ul, .section ol {
+    margin: 1rem 0 1.5rem 0;
+    padding: 0;
+    list-style: none;
+  }
+  .section ul li, .section ol li {
+    padding: 0.4rem 0 0.4rem 1.5rem;
+    position: relative;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+  .section ul li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.9rem;
+    width: 6px;
+    height: 6px;
+    background: var(--warm-accent);
+    border-radius: 50%;
+  }
+  .section ol { counter-reset: ol-counter; }
+  .section ol li { counter-increment: ol-counter; }
+  .section ol li::before {
+    content: counter(ol-counter);
+    position: absolute;
+    left: 0;
+    top: 0.4rem;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--warm-accent);
+    font-weight: 700;
+  }
+  .section strong { color: var(--text-primary); font-weight: 600; }
+  .section a { color: var(--warm-accent); text-decoration: none; }
+  .section a:hover { text-decoration: underline; }
+
+  /* ─── Callouts ─── */
+  .callout {
+    background: var(--warm-accent-glow);
+    border-left: 3px solid var(--warm-accent);
+    border-radius: 0 8px 8px 0;
+    padding: 1.25rem 1.5rem;
+    margin: 2rem 0;
+  }
+  .callout.warning {
+    background: var(--fire-glow);
+    border-left-color: var(--fire);
+  }
+  .callout-title {
+    font-weight: 700;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 0.5rem;
+    color: var(--warm-accent);
+  }
+  .callout.warning .callout-title { color: var(--fire); }
+  .callout p { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 0; }
+
+  /* ─── Steps ─── */
+  .steps {
+    counter-reset: step-counter;
+    margin: 2rem 0;
+  }
+  .step {
+    counter-increment: step-counter;
+    padding: 1.5rem 0 1.5rem 3.5rem;
+    position: relative;
+    border-left: 1px solid var(--warm-border);
+    margin-left: 1rem;
+  }
+  .step:last-child { border-left-color: transparent; }
+  .step::before {
+    content: counter(step-counter);
+    position: absolute;
+    left: -1.15rem;
+    top: 1.5rem;
+    width: 2.3rem;
+    height: 2.3rem;
+    background: var(--warm-bg);
+    border: 2px solid var(--warm-accent);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--warm-accent);
+    font-weight: 700;
+  }
+  .step h4 {
+    font-family: 'Source Sans 3', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+  }
+  .step p {
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+    margin-bottom: 0.5rem;
+  }
+  .step p:last-child { margin-bottom: 0; }
+
+  /* ─── Cards ─── */
+  .card {
+    background: var(--warm-bg-card);
+    border: 1px solid var(--warm-border);
+    border-radius: 12px;
+    padding: 2rem;
+    margin: 2rem 0;
+  }
+  .card-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--warm-accent);
+    margin-bottom: 1rem;
+  }
+  .card h3 { font-family: 'Playfair Display', serif; font-size: 1.3rem; margin-bottom: 1rem; }
+  .card p, .card li { color: var(--text-secondary); font-size: 0.95rem; }
+
+  /* ─── Photo Grid ─── */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+    margin: 2.5rem 0;
+  }
+  .photo-grid .gallery-item {
+    margin: 0;
+    position: relative;
+    cursor: pointer;
+    background: transparent;
+  }
+  .photo-grid .gallery-item img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+    transition: transform 0.4s ease, opacity 0.3s ease;
+    opacity: 0.85;
+  }
+  .photo-grid .gallery-item:hover img {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+  .photo-grid .gallery-item figcaption {
+    font-size: 0.8rem;
+    color: var(--text-muted, #8a7e6e);
+    margin-top: 0.5rem;
+    font-style: italic;
+  }
+  .photo-grid .gallery-item.featured {
+    grid-column: 1 / -1;
+  }
+  .photo-grid .gallery-item video {
+    width: 100%;
+    aspect-ratio: 4/3;
+    object-fit: cover;
+    display: block;
+    border-radius: 12px;
+  }
+  .section-hero {
+    width: 100%;
+    border-radius: 8px;
+    margin: 2rem 0;
+    cursor: pointer;
+  }
+  .section-hero img {
+    width: 100%;
+    display: block;
+    border-radius: 8px;
+  }
+  .photo-grid .img-wrap .photo-label {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+    background: rgba(0,0,0,0.7);
+    color: #ccc;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    padding: 2px 6px;
+    border-radius: 3px;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .photo-grid .gallery-item .img-wrap {
+    overflow: hidden;
+    border-radius: 12px;
+    position: relative;
+  }
+
+  .rendering-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0;
+  }
+  .rendering-grid .full { grid-column: 1 / -1; }
+  .rendering-grid img {
+    width: 100%;
+    border-radius: 8px;
+    background: var(--warm-bg-card);
+  }
+
+  /* ─── Lightbox ─── */
+  .lightbox-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(10, 8, 6, 0.95);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+    cursor: pointer;
+  }
+  .lightbox-overlay.active { display: flex; }
+  .lightbox-overlay img {
+    max-width: 90vw;
+    max-height: 85vh;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 20px 80px rgba(0,0,0,0.6);
+    cursor: default;
+  }
+  .lightbox-close {
+    position: fixed;
+    top: 1.5rem;
+    right: 1.5rem;
+    width: 44px;
+    height: 44px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 1001;
+  }
+  .lightbox-close:hover { background: rgba(255,255,255,0.2); }
+  .lightbox-nav {
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 50px;
+    height: 50px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 50%;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
+    z-index: 1001;
+  }
+  .lightbox-nav:hover { background: rgba(255,255,255,0.15); }
+  .lightbox-prev { left: 1.5rem; }
+  .lightbox-next { right: 1.5rem; }
+  .lightbox-caption {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.6);
+    z-index: 1001;
+    text-align: center;
+  }
+
+  /* ─── Footer ─── */
+  .footer {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    border-top: 1px solid var(--warm-border);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 640px) {
+    .section { padding: 4rem 0; }
+    .content { padding: 0 1.25rem; }
+    .hero-meta { flex-direction: column; gap: 0.75rem; }
+    .photo-grid { grid-template-columns: 1fr; }
+    .rendering-grid { grid-template-columns: 1fr; }
+    .toc a { padding: 1rem 0.65rem; font-size: 0.7rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════ HERO ═══════════ -->
+<header class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <h1>Building a Wood-Fired Sauna</h1>
+    <p class="hero-subtitle">Converting a woodshed in Mount Hood National Forest into a traditional Finnish-style sauna.</p>
+    <div class="scroll-hint">
+      <span>Scroll to read</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+    </div>
+  </div>
+</header>
+
+<div class="page-body">
+<!-- ═══════════ NAV ═══════════ -->
+<nav class="toc">
+  <div class="toc-inner">
+    <a href="#overview">Overview</a>
+    <a href="#design">Design</a>
+    <a href="#demo">Foundation</a>
+    <a href="#framing">Framing</a>
+    <a href="#floor">Floor</a>
+    <a href="#electrical">Electrical</a>
+    <a href="#windows">Windows</a>
+    <a href="#insulation">Insulation</a>
+    <a href="#vapor-barrier">Vapor Barrier</a>
+    <a href="#strapping">Strapping</a>
+    <a href="#paneling">Paneling</a>
+    <a href="#stove">Stove</a>
+    <a href="#heat-shield">Heat Shield</a>
+    <a href="#ventilation">Ventilation</a>
+    <a href="#lighting">Lighting</a>
+    <a href="#door">Door</a>
+    <a href="#milling">Milling</a>
+    <a href="#benches">Benches</a>
+    <a href="#first-firing">First Firing</a>
+    <a href="#finishing">Finishing</a>
+    <a href="#resources">Resources</a>
+  </div>
+</nav>
+
+<!-- ═══════════ CONTENT ═══════════ -->
+<main class="content">
+
+  <!-- 01. OVERVIEW -->
+  <section class="section" id="overview">
+    <span class="section-number">01 — Project Overview</span>
+    <h2>From Shed to Hot Room</h2>
+    <p class="section-intro">This guide documents the complete conversion of a small woodshed into a traditional Finnish-style wood-burning sauna. The structure includes a hot room, a changing area, and a small storage space — all built within an existing footprint of roughly 10' x 12'.</p>
+    <p>The project was a DIY build, tackling each phase over the course of several months. The stove is an <a href="https://ikisaunas.com/iki-wood-burning-heaters/#IKI-Original">IKI Plus</a> — a high-quality Finnish wood-burning sauna stove known for its exceptional löyly. The interior is clad in western red cedar tongue-and-groove paneling. The walls and ceiling are insulated with Rockwool, however the floor was built in a traditional manner using open, gapped cedar decking. The benches are also built from cedar, harvested and milled by a neighbor.</p>
+    <p>The sauna room itself is approximately 6' x 9'10", with 7'6" ceilings, with an L-shaped bench layout — an upper bench at 42" and lower bench at 22". Two windows look out onto the forest and nearby river.</p>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0511.jpeg" alt="Supplies" loading="lazy"></div><figcaption>Supplies</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 02. DESIGN -->
+  <section class="section" id="design">
+    <span class="section-number">02 — Design</span>
+    <h2>Design</h2>
+    <div class="rendering-grid"><img src="renderings/rendering-exterior.jpg" alt="Exterior rendering" class="full"></div>
+    <p class="section-intro">The design of the sauna started with its most central elements — the hearth, and the natural view behind it. I wanted the entire focus of the room to be on these two elements, which meant determining where to place the windows and then working backwards from here.</p>
+    <h3>Benches</h3>
+    <p>The benches are arrange in an L-shape, with 24" deep primary benches at the back of the sauna and a set of smaller smaller benches the side wall. Adding side benches offers a bit of extra seating when there are guests.</p>
+    <h3>Stove Selection</h3>
+    <p>IKI stoves renowned for their steam quality thanks to their unique helical chimney and generous rock capacity. Another advantage of all that rock is that it reduces required fire clearance — allowing the stove to be tucked tight into the corner, right where I wanted it. However, the whole stove weighs almost a ton, which added some complexity to the structural work.</p>
+    <div class="rendering-grid">
+      <img src="renderings/rendering-interior.jpg" alt="Interior rendering">
+      <img src="renderings/rendering-floorplan.jpg" alt="Floor plan rendering">
+    </div>
+  </section>
+
+  <!-- 03. DEMO & FOUNDATION -->
+  <section class="section" id="demo">
+    <span class="section-number">03 — Foundation</span>
+    <h2>Supporting a ton of rocks</h2>
+    <p class="section-intro">Before building the sauna, the existing interior of the outbuilding had to be stripped down to the joists and studs. Everything inside needed to come out: a ton of old junk, an existing wall, and the floor — which was in rough shape. I evaluated and reinforced the existing framing where needed.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Demolition</h4>
+        <p>I ripped out all the existing floor and then inspected every structural member for rot — especially at the sill plate and anywhere near the ground.</p>
+      </div>
+      <div class="step">
+        <h4>Sister &amp; level joists</h4>
+        <p>The floor was sagging badly due to undersized joists. I jacked everything back to level and added a beam to break up the 12' unsupported span. I also sistered the joists in the sauna area.</p>
+      </div>
+            <div class="step">
+        <h4>Support the stove</h4>
+        <p>The IKI stove with a full load of stones weighs nearly 1,000 lbs, so I added joists to half the joist spacing under the stove location. I supported these with a new beam and 3 new piers, one on each corner.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0335.jpeg" alt="Demolition — floor ripped up" loading="lazy"></div><figcaption>The flooring ran under the walls and had to be carefully cut away </figcaption></figure>
+            <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0337.jpeg" alt="Demo and foundation" loading="lazy"></div><figcaption>Under the floor I found undersized, sagging joists</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0513.jpeg" alt="Foundation detail" loading="lazy"></div><figcaption>Two beams were added to break up the 12' unsupported span.</figcaption></figure>
+            <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0848.jpeg" alt="Extra Joist framing from above" loading="lazy"></div><figcaption>Extra joists, a supporting beam and additional piers were added to carry the weight of the stove</figcaption></figure>
+    </div>
+  </section>
+
+  blocking for benches, vents, and windows
+  <!-- 04. FRAMING -->
+  <section class="section" id="framing">
+    <span class="section-number">04 — Framing</span>
+    <h2>Defining the room</h2>
+    <p class="section-intro">I added the interior wall and door to the sauna room and dropped the ceiling to keep the heat in. </p>
+    <div class="steps">
+      <div class="step">
+        <h4>Frame partition walls</h4>
+        <p>I built 2x4 stud walls at 16" on center. Corner studs were added for the paneling — every inside corner needs a nailing surface.</p>
+      </div>
+      <div class="step">
+        <h4>Install bench blocking</h4>
+        <p>I added horizontal blocking between studs at the bench hanger heights. This blocking serves two purposes — it stiffens the walls, and it gives you more places to screw the bench hangers into.
+           I changed my mind several times about the exact bench placement, so I was glad I added the blocking!</p>
+      </div>
+      <div class="step">
+        <h4>Frame rough openings</h4>
+        <p>I framed in the door plus an opening for ventilation.</p>
+      </div>
+      <div class="step">
+        <h4>Drop the ceiling</h4>
+        <p>I nailed 2x6 joists to the rafters. Again, every corner needs a board to nail the paneling!</p>
+      </div>
+          <div class="step">
+          <h4>Framing the stove pipe box</h4>
+        <p>Later in the project I realized I needed to start getting <i>very</i> clear about where my stove pipe was going to pass through the ceiling. Doing it at this point would have saved me some hassle! I made a template of my stove, used a plump bob to find the center of the pipe, figured out how much room I would need for the pipe support box and then framed a box for that with a bit of wiggle room. </p>
+    </div>
+    </div>
+    <div class="photo-grid">
+            <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0633.jpeg" alt="New joist framing" loading="lazy"></div><figcaption>Building the wall</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0634.jpeg" alt="Stud layout and blocking" loading="lazy"></div><figcaption>Wall is up and door RO is framed</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0639.jpeg" alt="Complete stud wall" loading="lazy"></div><figcaption>It's starting to look like a sauna room!</figcaption></figure>
+                  <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0244.jpeg" alt="Stove template on floor" loading="lazy"></div><figcaption>Using stove template to find pipe placement</figcaption></figure>
+
+    </div>
+  </section>
+
+  <!-- 05. SAUNA FLOOR -->
+  <section class="section" id="floor">
+    <span class="section-number">05 — Sauna Floor</span>
+    <h2>A Simple, Classic Design</h2>
+    <p class="section-intro">Gapped cedar deck boards are a traditional sauna construction method that offers built-in ventilation and drainage. They're a great fit for wood-fired saunas where you have plenty of heat and need a lot of air flow to feed the stove.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Install hardware cloth</h4>
+        <p>To keep rodents out, I stapled 1/4" galvanized hardware cloth between joists on the underside before laying any decking.</p>
+      </div>
+      <div class="step">
+        <h4>Plan board layout</h4>
+        <p>I did the math to determine how many boards I needed and roughly how much I'd need to trim the last board. I started at the front of the sauna so the trimmed board would be hidden under the benches.</p>
+      </div>
+      <div class="step">
+        <h4>Installing the boards</h4>
+        <p>To conceal the fasteners, I used the Marksman Pro system, which has the added benefit of ensuring consistent 3/16" spacing. The first board had to be face-screwed, but those were hidden by the wall assembly later.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0951.jpeg" alt="Floor and stove area" loading="lazy"></div><figcaption>Working front to back</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0956.jpeg" alt="Floor near completion" loading="lazy"></div><figcaption>Floor near completion</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0966.jpeg" alt="Floor detail" loading="lazy"></div><figcaption>Once I had the floor in I began obsessing over the exact placement of the benches</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1271.jpeg" alt="Floor detail" loading="lazy"></div><figcaption>I also began the agonizing process of figuring out exactly where the stove would sit (more on this later).</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 06. ELECTRICAL -->
+  <section class="section" id="electrical">
+    <span class="section-number">06 — Electrical</span>
+    <h2>Wiring the sauna</h2>
+    <p class="section-intro">Wiring was run before insulation went in, including circuits for sauna lighting, a changing room light and outlet, outdoor lighting, and storage area power. I originally planned under-bench lighting but scrapped that idea in favor of simple, dimmable wall lighting.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Drill &amp; run wire</h4>
+        <p>I drilled through the middle of studs with a 3/4" bit, all at the same height for a clean run. 12/2 Romex went to each location, with nail plates over every wire run through studs to protect wires from future nails and screws.</p>
+      </div>
+      <div class="step">
+        <h4>Install boxes &amp; make connections</h4>
+        <p>I left 6" of wire in front of each box and stapled the cable within 6" of every box. One wire per slot in the back of each box, with the ground wire attached to the grounding screw on the metal boxes. Don't use plastic boxes inside the hot room!</p>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Tip</div>
+      <p>Be sure to mount your boxes so they will be flush with your finished surface! I forgot to account for the full finished wall assembly thickness (paneling + strapping + vapor barrier) with my light box and it was a pain.</p>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1269.jpeg" alt="Electrical box installation" loading="lazy"></div><figcaption>Electrical box installation</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 07. WINDOWS -->
+  <section class="section" id="windows">
+    <span class="section-number">07 — Windows</span>
+    <h2>A complex, classic-looking design</h2>
+    <p class="section-intro">The windows were a bit of a sticky wicket — they needed to be engineered to withstand a sauna (tempered glass with high-temperature silicone sealant is a must), but also wood-framed and classicly styled to appease the US Forest Service. What I ended up doing was simply using two windows in each opening — a sealed doulbe-wall unit on the inside; and a simple, traditional barn sash windows on the outside. A "hot window" and a "cold window", if you will. This made the install more complex but was far easier and cheaper than trying to find someone to make custom windows that meet all those requirements. To make things easier on myself, I left installing the "hot window" until after the paneling was complete.</p>
+    <h3>Installation</h3>
+    <div class="steps">
+           <div class="step">
+        <h4>Frame and cut out the rough opening</h4>
+        <p>I built a temporary support for the eave-side wall before cutting out the existing studs. Then I framed in the windows and cut away the existing sheathing and siding. I installed some shingles on the sill plate to create a slope for drainage.</p>
+      </div>
+      <div class="step">
+        <h4>Flash the rough opening</h4>
+        <p>I applied flashing tape around the entire rough opening and about halfway into the framing — that material isn't rated for heat and I didn't want it to go beyond my outer window.</p>
+      </div>
+      <div class="step">
+        <h4>Install the jambs</h4>
+        <p>Jambs and sill were built from 1x6 Douglas fir.</p>
+      </div>
+      <div class="step">
+        <h4>Install exterior stops</h4>
+        <p>I cut 1" × 1/2" exterior stops and primed/painted all sides before installation, cutting a small weap hole for drainage. Since this was the "cold window", standard sealant was used. Just don't seal the weap hole!</p>
+      </div>
+      <div class="step">
+        <h4>Set glass &amp; interior stops &amp; seal</h4>
+        <p>I placed the sash in the RO and wedged interior stops against the glass with two beads of silicone — leaving a gap on the outer bead for drainage. </p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0969.jpeg" alt="Window detail" loading="lazy"></div><figcaption>I spent a lot of time on window placement so they would be just right to enjoy the view from the upper bench.</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0187.jpeg" alt="Window area framing" loading="lazy"></div><figcaption>Window rough openings</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0194.jpeg" alt="Window framing" loading="lazy"></div><figcaption>Windows flashed</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0196.jpeg" alt="Barn sash window" loading="lazy"></div><figcaption>Jambs installed</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0235.jpeg" alt="Completed windows" loading="lazy"></div><figcaption>Completed (cold) windows</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0197.jpeg" alt="Window progress" loading="lazy"></div><figcaption>Window from outside</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 08. INSULATION -->
+  <section class="section" id="insulation">
+    <span class="section-number">08 — Insulation</span>
+    <h2>Retaining the heat</h2>
+    <p class="section-intro">Rockwool insulation was used throughout — fire-resistant, moisture-tolerant, and handles extreme sauna temperatures without degrading.I used <strong>R-15 (3-1/2" thick)</strong> for the walls and <strong>R-23 (5-1/2" thick)</strong> for the ceiling. Standard fiberglass insulation has lower R-values for a given thickness and is not rated for the high temperatures and moisture of a sauna.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Install wall insulation</h4>
+        <p>I pressed R-15 batts into each stud bay, being careful not to compress them — insulation works by trapping air, and compressing reduces its R-value. Each piece was cut to fit snugly around electrical boxes, blocking, and window framing. I stuffed small pieces of Rockwool around door and window rough openings and other gaps.</p>
+      </div>
+      <div class="step">
+        <h4>Install ceiling insulation</h4>
+        <p>R-23 batts went overhead, friction-fit between joists. Gloves and a mask are a must — Rockwool fibers are non-toxic but irritating. The ceiling is the most important surface to insulate well, so I laid some extra R-23 batts on top of the joists in the attic area.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0265.jpeg" alt="Insulation around window" loading="lazy"></div><figcaption>Ah, the view</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0268.jpeg" alt="Insulation coverage" loading="lazy"></div><figcaption>Now it really feels like a room!</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 09. VAPOR BARRIER -->
+  <section class="section" id="vapor-barrier">
+    <span class="section-number">09 — Vapor Barrier</span>
+    <h2>Retaining the löyly</h2>
+            <div class="callout">
+    <div class="callout-title">Before you install the vapor barrier</div>
+      <p>This is a good time to take detailed photos of all stud and blocking locations — you'll need to know exactly where the studs are when installing bench hangers, trim, and accessories later.</p>
+    </div>
+    <p class="section-intro">The vapor barrier reflects radiant heat back into the room and prevents moisture from reaching the insulation and framing. Don't skip it.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>First run — horizontal around the room</h4>
+        <p>I rolled a 4' wide strip of aluminum foil horizontally around the entire room, shinxy side facing in, starting 1/2" from the door rough opening (the reveal gives the tape a landing spot). I stapled at every stud and used a scrap piece of paneling to push the foil tight into corners and crease it.</p>
+      </div>
+      <div class="step">
+        <h4>Second run — up, over, and down</h4>
+        <p>The second pass went vertically: up the wall, across the ceiling, and down the opposite wall, overlapping the first run by at least 6". I rolled right over window openings — cut those out next.</p>
+      </div>
+      <div class="step">
+        <h4>Cut windows &amp; tape seams</h4>
+        <p>I cut X-shapes at window openings, folded the flaps to the studs, and taped the seam with foil tape. Then I taped all the overlaps in the barier and all the little cuts and mistakes I made installing it. The vapor barrier goes <em>behind</em> electrical boxes — I sealed around wires and box edges with foil tape. The vapor barrier has to be continuous — any gap lets moisture into the wall cavity where it can collect and cause mold or rot.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0271.jpeg" alt="Aluminum vapor barrier" loading="lazy"></div><figcaption>First course is horitizontal</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0276.jpeg" alt="Vapor barrier detail" loading="lazy"></div><figcaption>Vapor barrier complete</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 10. STRAPPING -->
+  <section class="section" id="strapping">
+    <span class="section-number">10 — Strapping</span>
+    <h2>Mind the gap</h2>
+    <p class="section-intro">Furring strips installed over the vapor barrier are not a critical component of sauna construction, but they are a good idea unless space as extremely limited and you can't spare the extra inch. Furring creates an air gap, allowing moisture that condenses on your vapor barrier to run down the wall instead of eventually rotting the wood paneling. They also help eliminate irregularities in the framing to provide an even nailing surface for the cedar paneling. Finally, air gaps are insulators.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Install wall strapping</h4>
+        <p>Start with a single horitizontal strip along the top of each wall, and then placed vertical furring strips on top of the wall studs. I nailed these in place with 2" stainless steel brads.</p>
+      </div>
+            <div class="step">
+        <h4>Install ceiling strapping</h4>
+        <p>I ran furring strips parallel to the ceiling joists. I used brads here too, but I reinforced them with a bunch of stainless steel screws. Here again you need to be sure that every corner has something to nail the paneling into!</p>
+      </div>
+      <div class="step">
+        <h4>Add blocking strapping</h4>
+        <p>I added short pieces of strapping at bench blocking locations, around window and door openings, and anywhere trim or accessories would attach. By this point I knew more or less where my benches were going so I avoided running strapping all the way across my blocking since that would break up the drainage path in each stud bay.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Darken your corners</div>
+      <p>I sprayed black high-temperature stove paint over the corners in my ceiling. You want a small gap for air flow between your wall and your ceiling, and this way you won't see the shiny foil glaring out at you in the corners.</p>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0321.jpeg" alt="Furring strips installed" loading="lazy"></div><figcaption>Furring strips installed</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0330.jpeg" alt="Strapping on ceiling" loading="lazy"></div><figcaption>Strapping on ceiling</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0332.jpeg" alt="Strapping pattern" loading="lazy"></div><figcaption>Strapping pattern</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0331.jpeg" alt="Strapping detail" loading="lazy"></div><figcaption>Strapping detail</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0486.jpeg" alt="Strapping detail" loading="lazy"></div><figcaption>Strapping detail</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 11. PANELING -->
+  <section class="section" id="paneling">
+    <span class="section-number">11 — Paneling</span>
+    <h2>This is the fun part</h2>
+    <p class="section-intro">I used 1" Western Red Cedar T&amp;G for my build. To save money (cedar is dear these days), I used about 75% TK (tight knot) grade, with a bit of clear cedar for the areas behind the benches (knots can create hot spots that can be quite uncomfortable to sit against). I used 2" 18-gauge stainless steel brad nails.</p>
+    <p>This is one of the most satisfying parts of building a sauna and I enjoyed taking it slowly, obsessing a bit over the selection of each board to create interesting patterns and working carefully so that there are no gaps that need to be covered with trim.</p>
+        <div class="callout">
+      <div class="callout-title">Leave a mark</div>
+              <p>As you install your paneling, make some pencils markings to indicate where your bench blocking is!</p>
+    </div>
+    <h3>Installation Order</h3>
+    <div class="steps">
+            <div class="step">
+        <h4>Install cement board</h4>
+        <p>Before installing the paneling, I screwed 1/2" Durock (cement board) over the vapor barrier into studs in the entire stove corner, from floor to window height. There was no need to skim or paint this since it would all be covered by the heat shield.</p>
+      </div>
+      <div class="step">
+        <h4>Backs and sides first</h4>
+        <p>Before starting a surface, I calculated my coverage so that I could rip first board width roughly the same as the last board. No one wants a wee skinny board at the end.</p>
+        <p>I started the walls on the window side wall, then the back walls, then the door wall last. Each board butts into the last, hiding the cut end, and the cut ends of the boards on the door wall are hidden under door trim. I worked bottom-up, 3-4 courses at a time around the entire room to keep board lines (and patterns!) aligned. When I got to the top, I left enough room for the ceiling boards plus a small gap. The last board is face-nailed. I also left very last board on the door side off to make it easier to sneak in the ceiling boards. </p>
+      </div>
+      <div class="step">
+        <h4>Window wall next</h4>
+        <p>There is no universal rule to which surface to do first or last, and a lot depends on the space. In my case, I left this wall last because it had the most room to cheat - I could hide ends under both the door trim and window/heat shield. It also had a lot of short runs where I could use up leftovers. Again I left a couple boards off at the top until after the ceiling.</p>
+      </div>
+      <div class="step">
+        <h4>Ceiling last</h4>
+        <p>The ceiling was last, but because I left off a few wall boards it was easy since I could hide the ends under the top course of the walls (yes I could have just done the ceiling first, but I wanted to be able to pick all the best boards for the walls!). I measured the ceiling at both ends every 3-5 boards to prevent "fanning".</p>
+        <p>When I was done I snuck in those last wall boards. I went in the same order as before, ending at the front wall. This very last one was a full length course, and getting it in under the ceiling was tricky! I ended up needing to do several gradual cuts on the table saw with a slight bevel to get it to finally pop in. </p>
+      </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0343.jpeg" alt="Durock and stove template" loading="lazy"></div><figcaption>Durock and stove template</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0485.jpeg" alt="Wall detail" loading="lazy"></div><figcaption>First courses</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0490.jpeg" alt="Around obstacles" loading="lazy"></div><figcaption>Moving up</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0495.jpeg" alt="Upper wall" loading="lazy"></div><figcaption>Upper wall</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0509.jpeg" alt="Paneling progress" loading="lazy"></div><figcaption>Wall done except the last couple boards</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0515.jpeg" alt="Nearly complete" loading="lazy"></div><figcaption>Ceiling nearly complete</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 12. STOVE -->
+  <section class="section" id="stove">
+    <span class="section-number">12 — Stove</span>
+    <h2>Stove</h2>
+    <p class="section-intro">The heart of the sauna — an IKI Kiuas wood-burning stove with a DuraVent chimney system routed through the roof.</p>
+    <p>The IKI is a Finnish-made cylindrical wood-burning sauna stove. It holds a large volume of stones, producing excellent loyly (steam). The "Plus" model reduces chimney clearance to combustibles from 20" to 10".</p>
+    <h3>Chimney Installation</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>Determine roof slope &amp; chimney height</h4>
+        <p>I measured the roof pitch (~24° on this build) and calculated total chimney height: interior pipe + attic passage + exterior height. The chimney must extend at least 3' above the roof penetration and 2' above anything within 10'.</p>
+      </div>
+      <div class="step">
+        <h4>Drop plumb &amp; mark location</h4>
+        <p>I placed the stove template on the floor and dropped a plumb line from the ceiling to find the exact chimney center, then marked the ceiling penetration. This determines everything else — getting it right matters.</p>
+      </div>
+      <div class="step">
+        <h4>Build the support box</h4>
+        <p>I framed a support box in the attic/ceiling space around the chimney penetration. This box prevents the chimney from sagging, supports the weight of the exterior sections, and maintains the required clearance to combustibles.</p>
+      </div>
+      <div class="step">
+        <h4>Cut through the roof &amp; flash</h4>
+        <p>I cut through the roof, installed the flashing at the correct angle for the pitch, and sealed with high-temperature silicone. This is one of the few places worth hiring a pro if you're not confident — a bad roof penetration will leak for years.</p>
+      </div>
+      <div class="step">
+        <h4>Paint the pipe</h4>
+        <p>I touched up all pipe sections with 1000°F+ rated high-heat paint before paneling went in. The initial burn-off produces fumes you don't want in a finished room.</p>
+      </div>
+      <div class="step">
+        <h4>Install the damper</h4>
+        <p>I added a damper to the chimney — useful for controlling draft and critical for cutting off oxygen in case of a chimney fire. I verified its operation before the first firing.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0525.jpeg" alt="Stove with chimney and paneling" loading="lazy"></div><figcaption>Stove with chimney and paneling</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0526.jpeg" alt="Stove loaded" loading="lazy"></div><figcaption>Stove loaded</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0540.jpeg" alt="IKI stove detail" loading="lazy"></div><figcaption>IKI stove detail</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0541.jpeg" alt="Stove and chimney" loading="lazy"></div><figcaption>Stove and chimney</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0702.jpeg" alt="Stove in finished room" loading="lazy"></div><figcaption>Stove in finished room</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0710.jpeg" alt="IKI loaded with rocks" loading="lazy"></div><figcaption>IKI loaded with rocks</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0869.jpeg" alt="Chimney through ceiling" loading="lazy"></div><figcaption>Chimney through ceiling</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 13. HEAT SHIELD -->
+  <section class="section" id="heat-shield">
+    <span class="section-number">13 — Heat Shield</span>
+    <h2>Heat Shield</h2>
+    <p class="section-intro">Protecting the walls behind the stove from extreme heat is critical for safety. A multi-layer heat shield reduces required clearance and protects the structure.</p>
+    <h3>Wall Protection</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>Install decorative metal panel</h4>
+        <p>I mounted a custom-fabricated decorative metal panel with an air gap in front of the cement board. The air gap is critical — it allows convective cooling behind the panel. This assembly reduces the required stove clearance from 10" to approximately 5".</p>
+      </div>
+    </div>
+    <h3>Floor Protection</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>Install the stove pad</h4>
+        <p>I laid a 1/4" steel plate continuous under the stove and extending into the loading area in front. This catches sparks and embers during loading. The IKI technically doesn't require a floor pad, but protection in the loading area is essential.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><video src="movies/heatshield.mp4" poster="movies/heatshield_poster.jpg" playsinline muted loop controls preload="metadata"></video></div><figcaption>Heat shield fabrication</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/PXL_20260107_001222817.jpeg" alt="Heat shield complete" loading="lazy"></div><figcaption>Heat shield completes</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0885.jpeg" alt="Heat shield detail" loading="lazy"></div><figcaption>Heat shield installed</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 14. VENTILATION -->
+  <section class="section" id="ventilation">
+    <span class="section-number">14 — Ventilation</span>
+    <h2>Ventilation</h2>
+    <p class="section-intro">Proper ventilation provides fresh air for combustion, circulates heat evenly, and ensures bather comfort.</p>
+    <p>An outtake vent was placed on the back wall, opposite the stove. This follows Finnish convention — exhaust far from heater encourages full room circulation.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Locate the vent opening</h4>
+        <p>I placed the exhaust vent on the wall opposite the stove, below bench height. The distance from the stove ensures air circulates through the entire room before exiting. In a wood-burning sauna, the stove itself draws combustion air, acting as the intake.</p>
+      </div>
+      <div class="step">
+        <h4>Frame the opening</h4>
+        <p>I cut through the wall and framed the opening with short headers, with fine mesh screen on the interior side to keep insects out.</p>
+      </div>
+      <div class="step">
+        <h4>Install exterior rain hood</h4>
+        <p>I mounted an angled rain hood on the exterior, sloping away from the wall, and sealed the flange with exterior caulk.</p>
+      </div>
+      <div class="step">
+        <h4>Build the vent cover</h4>
+        <p>I made a cedar vent cover from scraps left over from the door jamb rippings. It slides to allow adjusting airflow during use — more open for hotter sessions, partially closed to retain heat.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0864.jpeg" alt="Exterior vent rain hood" loading="lazy"></div><figcaption>Exterior vent rain hood</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0714.jpeg" alt="Vent opening with screen" loading="lazy"></div><figcaption>Vent opening with screen</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0865.jpeg" alt="Exterior vent hood" loading="lazy"></div><figcaption>Exterior vent hood</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0867.jpeg" alt="Exterior vent detail" loading="lazy"></div><figcaption>Exterior vent detail</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0868.jpeg" alt="Vent screen" loading="lazy"></div><figcaption>Vent screen</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 15. LIGHTING -->
+  <section class="section" id="lighting">
+    <span class="section-number">15 — Lighting</span>
+    <h2>Lighting</h2>
+    <p class="section-intro">Sauna lighting should be warm, dimmable, and subtle. LED strips under benches create a beautiful ambient glow without harsh overhead light.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Plan light placement</h4>
+        <p>I mounted LED strips under the front lip of upper and lower benches, pointing downward. This creates pools of warm light at floor level without any visible light source from the seated position. A wall-mounted fixture provides task lighting for the stove area.</p>
+      </div>
+      <div class="step">
+        <h4>Run power &amp; control</h4>
+        <p>I routed the 24V LED driver wire from outside the sauna (drivers can't take the heat) through the wall to the strip locations. I went with a remote dimmer rather than a wall switch — it avoids compatibility issues between dimmer switches and LED drivers, and you can adjust from the bench.</p>
+      </div>
+      <div class="step">
+        <h4>Install the strips</h4>
+        <p>I mounted IP67-rated COB LED strips to the underside of the bench frame. COB (Continuous Output) strips produce a smooth line of light with no visible dots. 2700K warm white matches the cedar tones perfectly and is easy on the eyes during a session.</p>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-label">LED Strip Specs</div>
+      <ul>
+        <li><strong>COB (Continuous Output)</strong> — smooth line of light, no visible dots</li>
+        <li><strong>2700K warm white</strong> — matches cedar tones</li>
+        <li><strong>24V, IP67 rated</strong> — waterproof for sauna environment</li>
+        <li><strong>Dimmable drivers</strong> — bright for cleaning, subtle glow during use</li>
+      </ul>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Tip</div>
+      <p>If using LED strips with a remote dimmer, skip the wall dimmer switch for those circuits — the remote does a better job and avoids the compatibility headaches between dimmer switches and LED drivers.</p>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0605.jpeg" alt="Lighting detail" loading="lazy"></div><figcaption>Lighting detail</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0706.jpeg" alt="Sauna wall light" loading="lazy"></div><figcaption>Sauna wall light</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0711.jpeg" alt="Lighting detail" loading="lazy"></div><figcaption>Lighting detail</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0975.jpeg" alt="LED bench lighting" loading="lazy"></div><figcaption>LED bench lighting</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 16. DOOR -->
+  <section class="section" id="door">
+    <span class="section-number">16 — Door</span>
+    <h2>Door</h2>
+    <p class="section-intro">The sauna door was built from scratch — a cedar frame-and-panel door sized for the 26" x 76-3/8" rough opening, hung on mortised hinges.</p>
+    <p>The finished door is 24" x 74", set within a 3/4" jamb with a 2" inset. Built with lap joints on the table saw, T&amp;G cedar infill panels, and insulation in the frame cavities.</p>
+    <h3>Building</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>Cut lap joints</h4>
+        <p>I used a table saw with a miter gauge and a sacrificial fence behind the workpiece. Multiple passes to remove the waste, then cleanup with sandpaper. Clamping opposite stiles/rails together and routing in pairs ensured consistency.</p>
+      </div>
+      <div class="step">
+        <h4>Route decorative edges</h4>
+        <p>Finding the correct speed for the bit is key. I kept 2/3 of the shank in the collet and made several passes, with the last one light for a clean surface. Always go counter-clockwise around the piece — routers spin clockwise and you need the bit pulling into the work, not pushing away.</p>
+      </div>
+      <div class="step">
+        <h4>Glue the frame</h4>
+        <p>Cedar absorbs glue aggressively. I applied a thin sealer coat of glue, waited 60 seconds for absorption, then applied normal glue and clamped. 12-24 hours of cure time before handling.</p>
+      </div>
+      <div class="step">
+        <h4>Install T&amp;G infill panels</h4>
+        <p>I filled the frame cavities with cedar T&amp;G boards and insulation. The infill panels provide both thermal performance and the visual character of the door.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0722.jpeg" alt="Building the frame" loading="lazy"></div><figcaption>Building the frame</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0723.jpeg" alt="Lap joint cutting" loading="lazy"></div><figcaption>Lap joint cutting</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0732.jpeg" alt="Panel construction" loading="lazy"></div><figcaption>Panel construction</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0733.jpeg" alt="Gluing" loading="lazy"></div><figcaption>Gluing</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0740.jpeg" alt="Routing" loading="lazy"></div><figcaption>Routing</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0743.jpeg" alt="Hinge mortising" loading="lazy"></div><figcaption>Hinge mortising</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0748.jpeg" alt="Test fitting" loading="lazy"></div><figcaption>Test fitting</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0751.jpeg" alt="Shimming" loading="lazy"></div><figcaption>Shimming</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0757.jpeg" alt="Trim prep" loading="lazy"></div><figcaption>Trim prep</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0760.jpeg" alt="Installed door" loading="lazy"></div><figcaption>Installed door</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0762.jpeg" alt="From inside" loading="lazy"></div><figcaption>From inside</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0763.jpeg" alt="Door detail" loading="lazy"></div><figcaption>Door detail</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0764.jpeg" alt="Hardware" loading="lazy"></div><figcaption>Hardware</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0794.jpeg" alt="Finished interior" loading="lazy"></div><figcaption>Finished interior</figcaption></figure>
+    </div>
+    <h3>Hanging</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>Bevel door edges &amp; mortise hinges</h4>
+        <p>I ripped a 2-3° bevel on both edges of the door, with the low side on the stop side so the leading edge clears. I mortised the hinges into the door first — much easier to work on it flat than hanging.</p>
+      </div>
+      <div class="step">
+        <h4>Build the hinge jig</h4>
+        <p>I made a jig from 1x2 stock, cut to the height of the door plus reveals (1/8" top gap, 1/2" bottom gap). Attaching the hinge plates to the jig lets you transfer hinge locations precisely from door to jamb.</p>
+      </div>
+      <div class="step">
+        <h4>Prepare the jamb</h4>
+        <p>I ripped jamb stock to width, saving the rippings for trim material and vent covers. The floor sloped slightly, so I made the longer side jamb taller so the head jamb would sit level. A rabbet joint at the top makes a clean connection.</p>
+      </div>
+      <div class="step">
+        <h4>Mortise the jamb</h4>
+        <p>I clamped the jig to the side jamb, lined up the tops, and marked hinge locations with a utility knife. A combination square transferred the mortise depth from the door. Then I routed the mortises flush.</p>
+      </div>
+      <div class="step">
+        <h4>Assemble &amp; install</h4>
+        <p>I attached the hinge-side jamb to the door, then the head jamb to both side jambs. Standing the assembly up in the opening, I shimmed the top corners first, then opened the door and shimmed the side jamb until the reveals were even — 1/8" all the way around.</p>
+      </div>
+    </div>
+    <div class="callout warning">
+      <div class="callout-title">Warning</div>
+      <p>Do NOT put the hinge mortise on the wrong side of the door jamb. Triple-check and mark it clearly before routing — this is the most common and most painful mistake in door hanging.</p>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0946.jpeg" alt="Door progress" loading="lazy"></div><figcaption>Door progress</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0948.jpeg" alt="Door trim" loading="lazy"></div><figcaption>Door trim</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0949.jpeg" alt="Door casing" loading="lazy"></div><figcaption>Door casing</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0950.jpeg" alt="From changing room" loading="lazy"></div><figcaption>From changing room</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0951%20(1).jpeg" alt="Door and threshold" loading="lazy"></div><figcaption>Door and threshold</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0952%20(1).jpeg" alt="Hardware detail" loading="lazy"></div><figcaption>Hardware detail</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 17. MILLING BENCH LUMBER -->
+  <section class="section" id="milling">
+    <span class="section-number">17 — Milling Bench Lumber</span>
+    <h2>Milling Bench Lumber</h2>
+    <p class="section-intro">Bench lumber was milled from rough cedar stock — ripped and planed to exact dimensions for bench slats and frame.</p>
+    <p>Bench surfaces are 2x2 cedar slats with a 2x4 front fascia. The inner frame uses 2x4 stock. All lumber was milled from western red cedar harvested and felled by a neighbor — giving the benches both character and a connection to the local forest.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Source rough stock</h4>
+        <p>The cedar was felled by a neighbor and had already air-dried for two years before I milled it. Finding a local source for rough cedar saves significantly over buying surfaced lumber, and rough stock can be milled to exact custom dimensions.</p>
+      </div>
+      <div class="step">
+        <h4>Rip to dimension</h4>
+        <p>I ripped all bench slats (2x2), frame pieces (2x4), and fascia boards on the table saw. I milled extra stock for mistakes and test fits — you'll inevitably need more pieces than planned.</p>
+      </div>
+      <div class="step">
+        <h4>Round over front edges</h4>
+        <p>I ran a roundover bit on the router table along all front-facing edges of the bench slats and fascia. This small detail makes a big difference in comfort — sharp cedar edges are unpleasant on bare skin.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0828.jpeg" alt="Table saw ripping" loading="lazy"></div><figcaption>Table saw ripping</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0832.jpeg" alt="Milling bench slats" loading="lazy"></div><figcaption>Milling bench slats</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0835.jpeg" alt="Cedar bench lumber" loading="lazy"></div><figcaption>Cedar bench lumber</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><video src="movies/milling.mp4" poster="movies/milling_poster.jpg" playsinline muted loop controls preload="metadata"></video></div><figcaption>Milling cedar on the table saw</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 18. BENCHES -->
+  <section class="section" id="benches">
+    <span class="section-number">18 — Benches</span>
+    <h2>Benches</h2>
+    <p class="section-intro">L-shaped cedar benches at two heights — the defining feature of the sauna experience.</p>
+    <div class="card">
+      <div class="card-label">Bench Layout</div>
+      <ul>
+        <li><strong>Upper bench:</strong> 40" height, 24" deep, on back wall with L-extension</li>
+        <li><strong>Lower bench:</strong> 20" height, 24" deep with 4" tuck under upper</li>
+        <li>Lower bench designed to be removable for cleaning</li>
+        <li>~44" headroom at upper bench (~7" clearance when sitting at 5'11")</li>
+      </ul>
+    </div>
+    <h3>Bench Hangers</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>Set heights &amp; cut angles</h4>
+        <p>I added 4" (true 2x4 width) to bench height for hanger position — the bench frame sits on top of the hanger. I cut decorative 45° angles on the exposed ends of all side bar pieces.</p>
+      </div>
+      <div class="step">
+        <h4>Install 24" side bars</h4>
+        <p>I fastened the side bars first, checking level side-to-side and setting two screws into corner framing, then two screws per stud along the run. 4.5-5" screws are needed — they have to penetrate the 1-3/8" wall assembly (paneling + strapping + vapor barrier) and bite at least 1.5" into the stud.</p>
+      </div>
+      <div class="step">
+        <h4>Attach backwall piece</h4>
+        <p>I fastened the backwall hanger into studs with two screws per stud, then set a screw underneath at 45° from the backwall piece into each side piece to lock the L-shape together.</p>
+      </div>
+      <div class="step">
+        <h4>Install front support pieces</h4>
+        <p>I fastened 22.5" front pieces with 45° screws underneath into the backwall piece. These complete the hanger frame and support the front edge of the bench.</p>
+      </div>
+    </div>
+    <h3>Construction</h3>
+    <div class="steps">
+      <div class="step">
+        <h4>Size bench assemblies</h4>
+        <p>I deducted 1/4" from room width so the bench wouldn't be too tight to install, and used pocket screws for the front fascia board — this hides all hardware from the visible face.</p>
+      </div>
+      <div class="step">
+        <h4>Install straight benches first</h4>
+        <p>I built and installed the straight back-wall benches before the L-extensions. Test fitting without fastening first, then verifying dimensions before committing. Field measurements always beat drawings.</p>
+      </div>
+      <div class="step">
+        <h4>Build L-bench extensions</h4>
+        <p>With the straight benches verified, I built the L-extension pieces to fit. The corner joint locks the two sections together.</p>
+      </div>
+      <div class="step">
+        <h4>Make the lower bench removable</h4>
+        <p>The lower bench simply rests on its hangers with no fasteners. This allows easy removal for cleaning underneath — important in a room that gets regularly doused with water.</p>
+      </div>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0837.jpeg" alt="Bench frame assembly" loading="lazy"></div><figcaption>Bench frame assembly</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0838.jpeg" alt="Bench slat installation" loading="lazy"></div><figcaption>Bench slat installation</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0958.jpeg" alt="Bench from above" loading="lazy"></div><figcaption>Bench from above</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0959.jpeg" alt="Lower bench" loading="lazy"></div><figcaption>Lower bench</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0960.jpeg" alt="Bench detail" loading="lazy"></div><figcaption>Bench detail</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0961.jpeg" alt="Completed benches" loading="lazy"></div><figcaption>Completed benches</figcaption></figure>
+    </div>
+  </section>
+
+  <!-- 19. PLACING THE STONES & FIRST FIRING -->
+  <section class="section" id="first-firing">
+    <span class="section-number">19 — Placing the Stones & First Firing</span>
+    <h2>Placing the Stones & First Firing</h2>
+    <p class="section-intro">With the stove installed and chimney complete, it was time to load the rocks and light the first fire — the moment the whole build was leading to.</p>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0932.jpeg" alt="Stones and chimney" loading="lazy"></div><figcaption>Stones and chimney</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0933.jpeg" alt="Chimney through ceiling" loading="lazy"></div><figcaption>Chimney through ceiling</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0937.jpeg" alt="Stove area complete" loading="lazy"></div><figcaption>Stove area complete</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0938.jpeg" alt="View from bench" loading="lazy"></div><figcaption>View from bench</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0940.jpeg" alt="IKI loaded" loading="lazy"></div><figcaption>IKI loaded</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0941.jpeg" alt="Stove and heat shield" loading="lazy"></div><figcaption>Stove and heat shield</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0966%20(1).jpeg" alt="Stove detail" loading="lazy"></div><figcaption>Stove detail</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0976.jpeg" alt="First firing" loading="lazy"></div><figcaption>First firing</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0967%20(1).jpeg" alt="Stove and stones" loading="lazy"></div><figcaption>Stove and stones</figcaption></figure>
+    </div>
+    <div class="section-hero gallery-item"><img src="photos/IMG_0978.jpeg" alt="Stove with fire glowing through heat shield" loading="lazy"></div>
+  </section>
+
+  <!-- 20. FINISHING -->
+  <section class="section" id="finishing">
+    <span class="section-number">20 — Finishing</span>
+    <h2>Finishing</h2>
+    <p class="section-intro">The final details — trim, door stops, fire safety equipment, and exterior work.</p>
+    <div class="card">
+      <div class="card-label">Trim Dimensions</div>
+      <ul>
+        <li><strong>Door window trim:</strong> 1-3/8" x 1/2" — from jamb rippings</li>
+        <li><strong>Door casing:</strong> 3" x 3/4" — two sides at 76-3/8", header at 31"</li>
+        <li><strong>Window trim:</strong> 2.5-3" wide — four sides at 32", two tops at 37"</li>
+      </ul>
+    </div>
+    <h3>Remaining Items</h3>
+    <ul>
+      <li>Door stop material and magnetic latch</li>
+      <li>Rockwool in door frame gaps</li>
+      <li>Smoke/CO alarm and fire extinguisher</li>
+      <li>Clean and paint stove pipe</li>
+      <li>"Hot window" installation and sealing. Same process as installing the "cold window", just different materials. Nothing gets painted, and everything has to be heat tolerant. I sealed the jamb with high-temperature aluminum tape and used high-temperature silicone sealant for my stops.</li> 
+      <li>Exterior: reshingle around new windows, flash eaves</li>
+    </ul>
+    <div class="photo-grid">
+    </div>
+  </section>
+
+  <!-- 20. RESOURCES -->
+  <section class="section" id="resources">
+    <span class="section-number">21 — Resources</span>
+    <h2>Resources</h2>
+    <p class="section-intro">Guides, references, and suppliers that were invaluable throughout this build.</p>
+
+    <h3>Build Guides</h3>
+    <ul>
+      <li><a href="https://localmile.org/trumpkins-notes-on-building-a-sauna/" target="_blank">Trumpkin's Notes on Building a Sauna</a></li>
+      <li><a href="https://silfer.works/traditional-finnish-wood-burning-sauna/" target="_blank">Silfer Works: Traditional Finnish Wood-Burning Sauna</a></li>
+      <li><a href="https://imgur.com/gallery/full-sauna-build-eH5SiKy" target="_blank">Reddit/Imgur Full Sauna Build</a></li>
+      <li><a href="https://www.youtube.com/@HowToWithLech" target="_blank">How To With Lech (YouTube)</a></li>
+      <li><a href="https://steamist.com/wp-content/uploads/bsk-pdf-manager/2018/06/Pre_Cut_Sauna_Installation_Instructions-1.pdf" target="_blank">Steamist Pre-Cut Sauna Installation Guide (PDF)</a></li>
+    </ul>
+
+    <h3>Stove &amp; Chimney</h3>
+    <ul>
+      <li><a href="https://ikikiuas.com/products/kivi-iki-jr/" target="_blank">IKI Kiuas — Kivi IKI Jr.</a></li>
+      <li><a href="https://ikisaunas.com/wp-content/uploads/2025/01/IKI-woodburning-stoves-instructions-for-installation-and-use.pdf" target="_blank">IKI Installation Guide (PDF)</a></li>
+      <li><a href="https://saunarevival.com/pages/how-to-install-an-iki-wood-burning-heater-into-a-chimney-pipe" target="_blank">Sauna Revival: IKI Chimney Installation</a></li>
+    </ul>
+
+    <h3>Design &amp; Layout</h3>
+    <ul>
+      <li><a href="https://homemadesauna.com/blogs/news/sauna-layout" target="_blank">Homemade Sauna: Layout Guide</a></li>
+      <li><a href="https://www.saunatimes.com/building-a-sauna/sauna-ceiling-height-the-law-of-loyly-vs-the-bleacher-effect/" target="_blank">Saunatimes: Ceiling Height — Law of Loyly</a></li>
+      <li><a href="https://www.saunatimes.com/building-a-sauna/sauna-benches/" target="_blank">Saunatimes: Bench Design</a></li>
+      <li><a href="https://web.archive.org/web/20220707125432/https://www.cedarbrooksauna.com/planning-your-sauna.html" target="_blank">Cedarbrook Sauna: Planning Guide (Archive)</a></li>
+    </ul>
+
+    <h3>Paneling &amp; Lumber (Portland Area)</h3>
+    <ul>
+      <li><a href="https://www.lakesidelumber.com/" target="_blank">Lakeside Lumber</a> (recommended)</li>
+      <li><a href="https://www.mrplywoodinc.com/" target="_blank">Mr. Plywood</a></li>
+      <li><a href="https://www.customcedarproductsinc.com/" target="_blank">Custom Cedar Products</a></li>
+      <li><a href="https://www.materialforless.com/product/cedar/" target="_blank">BMR / Material For Less</a></li>
+      <li>Facebook Marketplace and Craigslist for cedar T&amp;G from local sellers</li>
+    </ul>
+
+    <h3>Technique References</h3>
+    <ul>
+      <li><a href="https://www.cedarbarrelsaunas.com/framing-a-sauna-room.html" target="_blank">Framing a Sauna Room</a></li>
+      <li><a href="https://www.cedarbarrelsaunas.com/sauna-heat-foil-sauna-aluminum-vapor-foil.html" target="_blank">Vapor Barrier Installation</a></li>
+      <li><a href="https://wett-inspection.com/building-heat-shield/" target="_blank">Building a Heat Shield</a></li>
+      <li><a href="https://www.saunatimes.com/building-a-sauna/build-your-own-sauna-door/" target="_blank">Saunatimes: Build Your Own Sauna Door</a></li>
+      <li><a href="https://outdoorsaunabuildmndiy.blogspot.com/2016/03/building-sauna-door-from-scratch.html" target="_blank">Building a Sauna Door From Scratch</a></li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<div class="footer">
+  <p>Built with cedar, stone wool, and determination. 2025-2026.</p>
+</div>
+
+<!-- ═══════════ LIGHTBOX ═══════════ -->
+<div class="lightbox-overlay" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev">&#8249;</button>
+  <button class="lightbox-nav lightbox-next" id="lightbox-next">&#8250;</button>
+  <img src="" alt="" id="lightbox-img">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script>
+  // Hero scroll-fade effect
+  const heroBg = document.querySelector('.hero-bg');
+  const heroH1 = document.querySelector('.hero h1');
+  const heroSub = document.querySelector('.hero-subtitle');
+  const scrollHint = document.querySelector('.scroll-hint');
+  const heroHeight = document.querySelector('.hero').offsetHeight;
+
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    const vh = window.innerHeight;
+    const fadeZone = vh * 0.8;
+    // Progress 0→1 over first 80vh of scroll
+    const progress = Math.min(scrollY / fadeZone, 1);
+    // h1 fades in first, subtitle follows
+    const h1Progress = Math.min(progress * 2.5, 1);
+    const subProgress = Math.max((progress - 0.25) / 0.5, 0);
+    heroH1.style.opacity = h1Progress;
+    heroH1.style.transform = `translateY(${20 * (1 - h1Progress)}px)`;
+    heroSub.style.opacity = Math.min(subProgress, 1);
+    heroSub.style.transform = `translateY(${20 * (1 - Math.min(subProgress, 1))}px)`;
+    // Fade out scroll hint
+    if (scrollHint) scrollHint.style.opacity = 1 - progress * 3;
+    // Hide fixed bg once hero is scrolled past
+    heroBg.style.display = scrollY > heroHeight ? 'none' : '';
+  }, { passive: true });
+
+  // Lightbox with prev/next
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lightbox-img');
+  const lbCaption = document.getElementById('lightbox-caption');
+  const allItems = Array.from(document.querySelectorAll('.gallery-item img'));
+  let currentIdx = 0;
+
+  function openLightbox(idx) {
+    currentIdx = idx;
+    lbImg.src = allItems[idx].src;
+    lbCaption.textContent = allItems[idx].alt;
+    lightbox.classList.add('active');
+  }
+
+  function closeLightbox() { lightbox.classList.remove('active'); }
+
+  function navigate(dir) {
+    currentIdx = (currentIdx + dir + allItems.length) % allItems.length;
+    lbImg.src = allItems[currentIdx].src;
+    lbCaption.textContent = allItems[currentIdx].alt;
+  }
+
+  allItems.forEach((img, i) => {
+    img.closest('.gallery-item').addEventListener('click', () => openLightbox(i));
+  });
+
+  document.getElementById('lightbox-close').addEventListener('click', e => { e.stopPropagation(); closeLightbox(); });
+  document.getElementById('lightbox-prev').addEventListener('click', e => { e.stopPropagation(); navigate(-1); });
+  document.getElementById('lightbox-next').addEventListener('click', e => { e.stopPropagation(); navigate(1); });
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+  document.addEventListener('keydown', e => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') navigate(-1);
+    if (e.key === 'ArrowRight') navigate(1);
+  });
+
+  // Temp filename labels for feedback
+  allItems.forEach(img => {
+    const fname = decodeURIComponent(img.src.split('/').pop());
+    const label = document.createElement('span');
+    label.className = 'photo-label';
+    label.textContent = fname;
+    img.closest('.img-wrap').appendChild(label);
+  });
+
+  // Smooth scroll offset for sticky nav
+  document.querySelectorAll('.toc a').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      const tocH = document.querySelector('.toc').offsetHeight;
+      window.scrollTo({ top: target.getBoundingClientRect().top + window.pageYOffset - tocH - 20, behavior: 'smooth' });
+    });
+  });
+</script>
+
+</div>
+</body>
+</html>
