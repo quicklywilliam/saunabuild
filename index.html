@@ -159,24 +159,21 @@
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--warm-border);
-    overflow-x: auto;
   }
   .toc-inner {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
-    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 0;
     padding: 0 1rem;
-    overflow-x: auto;
-    scrollbar-width: none;
   }
-  .toc-inner::-webkit-scrollbar { display: none; }
   .toc a {
     color: var(--text-muted);
     text-decoration: none;
     font-size: 0.75rem;
-    padding: 1rem 0.85rem;
+    padding: 0.6rem 0.85rem;
     white-space: nowrap;
     transition: color 0.2s;
     letter-spacing: 0.03em;
@@ -409,19 +406,6 @@
     margin-top: 0.5rem;
     font-style: italic;
   }
-  .photo-grid .img-wrap .photo-label {
-    position: absolute;
-    bottom: 4px;
-    left: 4px;
-    background: rgba(0,0,0,0.7);
-    color: #ccc;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    padding: 2px 6px;
-    border-radius: 3px;
-    pointer-events: none;
-    z-index: 1;
-  }
   .photo-grid .gallery-item .img-wrap {
     overflow: hidden;
     border-radius: 12px;
@@ -557,17 +541,11 @@
     <a href="#design">Design</a>
     <a href="#demo">Foundation</a>
     <a href="#framing">Framing</a>
-    <a href="#chimney">Chimney</a>
     <a href="#floor">Floor</a>
-    <a href="#electrical">Electrical</a>
     <a href="#windows">Windows</a>
     <a href="#insulation">Insulation</a>
-    <a href="#vapor-barrier">Vapor Barrier</a>
-    <a href="#strapping">Strapping</a>
     <a href="#paneling">Paneling</a>
-    <a href="#stove">Stove &amp; Heat Shield</a>
-    <a href="#ventilation">Ventilation</a>
-    <a href="#lighting">Lighting</a>
+    <a href="#stove">Stove</a>
     <a href="#door">Door</a>
     <a href="#benches">Benches</a>
     <a href="#first-firing">First Firing</a>
@@ -637,7 +615,7 @@
   blocking for benches, vents, and windows
   <!-- 04. FRAMING -->
   <section class="section" id="framing">
-    <span class="section-number">04 — Framing</span>
+    <span class="section-number">04 — Framing &amp; Electrical</span>
     <h2>Defining the room</h2>
     <p class="section-intro">I added the interior wall and door to the sauna room and dropped the ceiling to keep the heat in. </p>
     <div class="steps">
@@ -664,12 +642,7 @@
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0634.jpeg" alt="Stud layout and blocking" loading="lazy"></div><figcaption>Wall is up and door RO is framed</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0639.jpeg" alt="Complete stud wall" loading="lazy"></div><figcaption>It's starting to look like a sauna room!</figcaption></figure>
     </div>
-  </section>
-
-  <!-- 05. CHIMNEY PLANNING -->
-  <section class="section" id="chimney">
-    <span class="section-number">05 — Chimney Placement</span>
-    <h2>It pays to plan…</h2>
+    <h3>Chimney Placement</h3>
     <p class="section-intro">At this stage, you will want to plan the chimney placement. This means determining exactly where the stove will sit, and where that places the pipe at the ceiling and roofline. I learned this the hard way — I had to move a ceiling joist late in the project because I didn't know the exact pipe path soon enough.</p>
     <p>You can always cheat with some bends in the pipe, but a straight run looks better and drafts better. Do some <a href="https://www.saunatimes.com/building-a-sauna/sauna-stoves/lets-make-purchasing-wood-stove-chimney-components-easy/">reading</a> and planning for your chimney system so that you know what it will look like.</p>
     <div class="steps">
@@ -693,6 +666,25 @@
     <div class="photo-grid">
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0244.jpeg" alt="Stove template on floor" loading="lazy"></div><figcaption>Using stove template to find pipe placement</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0407.jpeg" alt="Framed chimney support box" loading="lazy"></div><figcaption>Framing the support box in the ceiling</figcaption></figure>
+    </div>
+    <h3>Electrical</h3>
+    <p class="section-intro">Wiring was run before insulation went in, including circuits for sauna lighting, a changing room light and outlet, outdoor lighting, and storage area power. I originally planned under-bench lighting but scrapped that idea in favor of simple, dimmable wall lighting.</p>
+    <div class="steps">
+      <div class="step">
+        <h4>Drill &amp; run wire</h4>
+        <p>I drilled through the middle of studs with a 3/4" bit, all at the same height for a clean run. 12/2 Romex went to each location, with nail plates over every wire run through studs to protect wires from future nails and screws.</p>
+      </div>
+      <div class="step">
+        <h4>Install boxes &amp; make connections</h4>
+        <p>I left 6" of wire in front of each box and stapled the cable within 6" of every box. One wire per slot in the back of each box, with the ground wire attached to the grounding screw on the metal boxes. Don't use plastic boxes inside the hot room!</p>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="callout-title">Tip</div>
+      <p>Be sure to mount your boxes so they will be flush with your finished surface! I forgot to account for the full finished wall assembly thickness (paneling + strapping + vapor barrier) with my light box and it was a pain.</p>
+    </div>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1269.jpeg" alt="Electrical box installation" loading="lazy"></div><figcaption>Electrical box installation</figcaption></figure>
     </div>
   </section>
 
@@ -720,30 +712,6 @@
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0956.jpeg" alt="Floor near completion" loading="lazy"></div><figcaption>Floor near completion</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0966.jpeg" alt="Floor detail" loading="lazy"></div><figcaption>Once I had the floor in I began obsessing over the exact placement of the benches</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1271.jpeg" alt="Floor detail" loading="lazy"></div><figcaption>I also began the agonizing process of figuring out exactly where the stove would sit (more on this later).</figcaption></figure>
-    </div>
-  </section>
-
-  <!-- 07. ELECTRICAL -->
-  <section class="section" id="electrical">
-    <span class="section-number">07 — Electrical</span>
-    <h2>Wiring the sauna</h2>
-    <p class="section-intro">Wiring was run before insulation went in, including circuits for sauna lighting, a changing room light and outlet, outdoor lighting, and storage area power. I originally planned under-bench lighting but scrapped that idea in favor of simple, dimmable wall lighting.</p>
-    <div class="steps">
-      <div class="step">
-        <h4>Drill &amp; run wire</h4>
-        <p>I drilled through the middle of studs with a 3/4" bit, all at the same height for a clean run. 12/2 Romex went to each location, with nail plates over every wire run through studs to protect wires from future nails and screws.</p>
-      </div>
-      <div class="step">
-        <h4>Install boxes &amp; make connections</h4>
-        <p>I left 6" of wire in front of each box and stapled the cable within 6" of every box. One wire per slot in the back of each box, with the ground wire attached to the grounding screw on the metal boxes. Don't use plastic boxes inside the hot room!</p>
-      </div>
-    </div>
-    <div class="callout">
-      <div class="callout-title">Tip</div>
-      <p>Be sure to mount your boxes so they will be flush with your finished surface! I forgot to account for the full finished wall assembly thickness (paneling + strapping + vapor barrier) with my light box and it was a pain.</p>
-    </div>
-    <div class="photo-grid">
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1269.jpeg" alt="Electrical box installation" loading="lazy"></div><figcaption>Electrical box installation</figcaption></figure>
     </div>
   </section>
 
@@ -787,8 +755,9 @@
 
   <!-- 09. INSULATION -->
   <section class="section" id="insulation">
-    <span class="section-number">09 — Insulation</span>
+    <span class="section-number">09 — Insulation &amp; Vapor Barrier</span>
     <h2>Retaining the heat</h2>
+    <h3>Insulation</h3>
     <p class="section-intro">Rockwool insulation was used throughout — fire-resistant, moisture-tolerant, and handles extreme sauna temperatures without degrading.I used <strong>R-15 (3-1/2" thick)</strong> for the walls and <strong>R-23 (5-1/2" thick)</strong> for the ceiling. Standard fiberglass insulation has lower R-values for a given thickness and is not rated for the high temperatures and moisture of a sauna.</p>
     <div class="steps">
       <div class="step">
@@ -804,12 +773,7 @@
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0265.jpeg" alt="Insulation around window" loading="lazy"></div><figcaption>Ah, the view</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0268.jpeg" alt="Insulation coverage" loading="lazy"></div><figcaption>Now it really feels like a room!</figcaption></figure>
     </div>
-  </section>
-
-  <!-- 10. VAPOR BARRIER -->
-  <section class="section" id="vapor-barrier">
-    <span class="section-number">10 — Vapor Barrier</span>
-    <h2>Retaining the löyly</h2>
+    <h3>Vapor Barrier</h3>
             <div class="callout">
     <div class="callout-title">Before you install the vapor barrier</div>
       <p>This is a good time to take detailed photos of all stud and blocking locations — you'll need to know exactly where the studs are when installing bench hangers, trim, and accessories later.</p>
@@ -835,10 +799,11 @@
     </div>
   </section>
 
-  <!-- 11. STRAPPING -->
-  <section class="section" id="strapping">
-    <span class="section-number">11 — Strapping</span>
-    <h2>Mind the gap</h2>
+  <!-- 12. PANELING -->
+  <section class="section" id="paneling">
+    <span class="section-number">12 — Paneling</span>
+    <h2>Finishing the walls</h2>
+    <h3>Mind the gap</h3>
     <p class="section-intro">Furring strips installed over the vapor barrier are not a critical component of sauna construction, but they are a good idea unless space as extremely limited and you can't spare the extra inch. Furring creates an air gap, allowing moisture that condenses on your vapor barrier to run down the wall instead of eventually rotting the wood paneling. They also help eliminate irregularities in the framing to provide an even nailing surface for the cedar paneling. Finally, air gaps are insulators.</p>
     <div class="steps">
       <div class="step">
@@ -865,12 +830,7 @@
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0331.jpeg" alt="Strapping detail" loading="lazy"></div><figcaption>Strapping detail</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0486.jpeg" alt="Strapping detail" loading="lazy"></div><figcaption>Strapping detail</figcaption></figure>
     </div>
-  </section>
-
-  <!-- 12. PANELING -->
-  <section class="section" id="paneling">
-    <span class="section-number">12 — Paneling</span>
-    <h2>The fun part</h2>
+    <h3>The fun part</h3>
     <p class="section-intro">I used 1" Western Red Cedar T&amp;G for my build. To save money (cedar is dear these days), I used about 75% TK (tight knot) grade, with a bit of clear cedar for the areas behind the benches (knots can create hot spots that can be quite uncomfortable to sit against). I used 2" 18-gauge stainless steel brad nails.</p>
     <p>This is one of the most satisfying parts of building a sauna and I enjoyed taking it slowly, obsessing a bit over the selection of each board to create interesting patterns and working carefully so that there are no gaps that need to be covered with trim.</p>
         <div class="callout">
@@ -897,6 +857,7 @@
         <p>The ceiling was last, but because I left off a few wall boards it was easy since I could hide the ends under the top course of the walls (yes I could have just done the ceiling first, but I wanted to be able to pick all the best boards for the walls!). I measured the ceiling at both ends every 3-5 boards to prevent "fanning".</p>
         <p>I stopped the ceiling boards when I reached the stove pipe. Aftert it was installed (see next section), I finished up the ceiling and then snuck in those last wall boards. I went in the same wall order as before, ending at the front wall. This very last board was a full length course, and getting it in under the ceiling was tricky! I ended up needing to do several gradual cuts on the table saw with a slight bevel to get it to finally pop in. </p>
       </div>
+    </div>
     <div class="photo-grid">
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0343.jpeg" alt="Durock and stove template" loading="lazy"></div><figcaption>Durock and stove template</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0485.jpeg" alt="Wall detail" loading="lazy"></div><figcaption>First courses</figcaption></figure>
@@ -915,21 +876,20 @@
       <div class="callout-title">Burn off</div>
       <p>It's a good idea to build a quick, hot fire in the stove outside the sauna before installing. This will burn off any residue from the manufacturing process.</p>
     </div>
-    <p class="section-intro">Installing the stove was a complicated process I wish I figured out earlier (see section on Chimney Placement). I ended up hiring a technician to do the actual chimney install — I was behind schedule and fire safety is not something you want to rush! There are <a href="https://outdoorsaunabuildmndiy.blogspot.com/2015/11/installing-wood-stove-chimney-and.html">many</a> <a href="https://www.youtube.com/watch?v=aRL9xGoSGic">good</a> guides out there if you want to DIY.</p>
-    <p>The heat shield ended up being a mini-project as well, but one with fantastic results! I knew I wanted to use a multi-layer heat shield to reduces the required clearance as far as possible. I also wanted something really special – again, this corner is the focal point of the entire sauna! A friend of mine runs a <a href="moltenember.com">metal fabrication business</a>, so I commisioned him to make a custom heat shield. It was inspired by the salmon I see running up the nearby river. It consisted of 3 pieces - a heat shield mounted with a 1" air gap in front of the cement board, a decorative layer mounted in front of it, and a steel plate for floor protection.</p>
-    <figure class="section-hero gallery-item"><img src="photos/IMG_0885.jpeg" alt="Heat shield and floor protection installed" loading="lazy"><figcaption>Heat shield and floor protection installed</figcaption></figure>
-    <div class="photo-grid">
+    <p class="section-intro">Installing the stove was a complicated process I wish I figured out earlier (see the section above on Chimney Placement). I ended up hiring a technician to do the actual chimney install — I was behind schedule and fire safety is not something you want to rush! There are <a href="https://outdoorsaunabuildmndiy.blogspot.com/2015/11/installing-wood-stove-chimney-and.html">many</a> <a href="https://www.youtube.com/watch?v=aRL9xGoSGic">good</a> guides out there if you want to DIY.</p>
+     <div class="photo-grid">
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0702.jpeg" alt="Stove in finished room" loading="lazy"></div><figcaption>Stove installed with all the paneling finally done</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0869.jpeg" alt="Chimney through ceiling" loading="lazy"></div><figcaption>Chimney support through ceiling</figcaption></figure>
+    </div>
+    <h3>Heat Shield</h3>
+    <p>The heat shield ended up being a mini-project as well, but one with fantastic results! I knew I wanted to use a multi-layer heat shield to reduces the required clearance as far as possible. I also wanted something really special – again, this corner is the focal point of the entire sauna! A friend of mine runs a <a href="moltenember.com">metal fabrication business</a>, so I commisioned him to make a custom heat shield. It was inspired by the salmon I see running up the nearby river. It consisted of 3 pieces - a heat shield mounted with a 1" air gap in front of the cement board, a decorative layer mounted in front of it, and a steel plate for floor protection.</p>
+       <div class="photo-grid">
       <figure class="gallery-item"><div class="img-wrap"><video src="movies/heatshield.mp4" poster="movies/heatshield_poster.jpg" playsinline muted loop controls preload="metadata"></video></div><figcaption>Fabricating the heat shield</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/PXL_20260107_001222817.jpeg" alt="Heat shield complete" loading="lazy"></div><figcaption>The decorative layer was oxidized prior to install</figcaption></figure>
     </div>
-  </section>
+    <figure class="section-hero gallery-item"><img src="photos/IMG_0885.jpeg" alt="Heat shield and floor protection installed" loading="lazy"><figcaption>Heat shield and floor protection installed</figcaption></figure>
 
-  <!-- 14. VENTILATION -->
-  <section class="section" id="ventilation">
-    <span class="section-number">14 — Ventilation</span>
-    <h2>Taking a breath</h2>
+    <h3>Ventilation</h3>
     <p class="section-intro">One of the best things about a wood-fire sauna (besides staring deeply into the flames) is that it brings a lot of air movement into the sauna. This creates an entirely different quality of heat and steam, and eliminates that stiffling or stuffy you may have experienced with an electric sauna without proper ventilation.</p>
       <p>The floor system provides plenty of fresh air for the stove. To ensure air circulation across the entire sauna room, a 6x8" outtake vent was placed high on the back wall, opposite the stove.</p>
     <div class="steps">
@@ -950,17 +910,6 @@
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0714.jpeg" alt="Vent opening with screen" loading="lazy"></div><figcaption>Vent opening with screen</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0865.jpeg" alt="Exterior vent hood" loading="lazy"></div><figcaption>Exterior vent hood</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0867.jpeg" alt="Exterior vent detail" loading="lazy"></div><figcaption>Interior vent detail</figcaption></figure>
-    </div>
-  </section>
-
-  <!-- 16. LIGHTING -->
-  <section class="section" id="lighting">
-    <span class="section-number">15 — Lighting</span>
-    <h2>Lighting</h2>
-    <p class="section-intro">After considering under bench lighting and a range of other options, I ended up choosing a very simple lighting system. I wanted the space to stay fairly dim and largely lit by firelight. A simple dimmable lamp was installed, with a <a href="https://www.saunaplace.com/products/cedar-light-shade-7-1-2w-x-10-1-4h?srsltid=AfmBOooSZKGWI1ibuWHVNPLIWh3EeOwuHqe0qeNBw-qQYQU9mBgW1HEJ">beautiful cedar covering</a>.</p>
-    <div class="photo-grid">
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0605.jpeg" alt="Lighting detail" loading="lazy"></div><figcaption>I messed up and didn't install the box far enough out to accomidate the entire wall assembly. Luckily I was able to find an extension ring that closed the gap.</figcaption></figure>
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0706.jpeg" alt="Sauna wall light" loading="lazy"></div><figcaption>Wall light with covering</figcaption></figure>
     </div>
   </section>
 
@@ -1126,8 +1075,16 @@
 
   <!-- 21. FINISHING -->
   <section class="section" id="finishing">
-    <span class="section-number">19 — Finishing</span>
-    <h2>Finishing</h2>
+    <span class="section-number">19 — Finish Work</span>
+    WIP
+    <h2>The final details</h2>
+    <h3>Lighting</h3>
+    <p class="section-intro">After considering under bench lighting and a range of other options, I ended up choosing a very simple lighting system. I wanted the space to stay fairly dim and largely lit by firelight. A simple dimmable lamp was installed, with a <a href="https://www.saunaplace.com/products/cedar-light-shade-7-1-2w-x-10-1-4h?srsltid=AfmBOooSZKGWI1ibuWHVNPLIWh3EeOwuHqe0qeNBw-qQYQU9mBgW1HEJ">beautiful cedar covering</a>.</p>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0605.jpeg" alt="Lighting detail" loading="lazy"></div><figcaption>I messed up and didn't install the box far enough out to accomidate the entire wall assembly. Luckily I was able to find an extension ring that closed the gap.</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0706.jpeg" alt="Sauna wall light" loading="lazy"></div><figcaption>Wall light with covering</figcaption></figure>
+    </div>
+    <h3>Trim</h3>
     <p class="section-intro">The final details — trim, door stops, fire safety equipment, and exterior work.</p>
     <div class="card">
       <div class="card-label">Trim Dimensions</div>
@@ -1154,22 +1111,14 @@
   <section class="section" id="resources">
     <span class="section-number">20 — Resources</span>
     <h2>Resources</h2>
-    <p class="section-intro">Guides, references, and suppliers that were invaluable throughout this build.</p>
+    <p class="section-intro">WIP</p>
 
     <h3>Build Guides</h3>
     <ul>
+      <li><a href="https://www.saunatimes.com/product/sauna-build-from-start-to-finnish-ebook/?srsltid=AfmBOorzyv5GuWLWuGpKDTScN8pwz56Lo50834Pi7aNEiFl-2FMlVb0m" target="_blank">Sauna Build, From Start to Finnish</a></li>
+      <li><a href="https://shop.finlandiafoundation.org/products/art-of-sauna-building" target="_blank">Art of Sauna Building</a></li>
       <li><a href="https://localmile.org/trumpkins-notes-on-building-a-sauna/" target="_blank">Trumpkin's Notes on Building a Sauna</a></li>
-      <li><a href="https://silfer.works/traditional-finnish-wood-burning-sauna/" target="_blank">Silfer Works: Traditional Finnish Wood-Burning Sauna</a></li>
-      <li><a href="https://imgur.com/gallery/full-sauna-build-eH5SiKy" target="_blank">Reddit/Imgur Full Sauna Build</a></li>
       <li><a href="https://www.youtube.com/@HowToWithLech" target="_blank">How To With Lech (YouTube)</a></li>
-      <li><a href="https://steamist.com/wp-content/uploads/bsk-pdf-manager/2018/06/Pre_Cut_Sauna_Installation_Instructions-1.pdf" target="_blank">Steamist Pre-Cut Sauna Installation Guide (PDF)</a></li>
-    </ul>
-
-    <h3>Stove &amp; Chimney</h3>
-    <ul>
-      <li><a href="https://ikikiuas.com/products/kivi-iki-jr/" target="_blank">IKI Kiuas — Kivi IKI Jr.</a></li>
-      <li><a href="https://ikisaunas.com/wp-content/uploads/2025/01/IKI-woodburning-stoves-instructions-for-installation-and-use.pdf" target="_blank">IKI Installation Guide (PDF)</a></li>
-      <li><a href="https://saunarevival.com/pages/how-to-install-an-iki-wood-burning-heater-into-a-chimney-pipe" target="_blank">Sauna Revival: IKI Chimney Installation</a></li>
     </ul>
 
     <h3>Design &amp; Layout</h3>
@@ -1178,24 +1127,6 @@
       <li><a href="https://www.saunatimes.com/building-a-sauna/sauna-ceiling-height-the-law-of-loyly-vs-the-bleacher-effect/" target="_blank">Saunatimes: Ceiling Height — Law of Loyly</a></li>
       <li><a href="https://www.saunatimes.com/building-a-sauna/sauna-benches/" target="_blank">Saunatimes: Bench Design</a></li>
       <li><a href="https://web.archive.org/web/20220707125432/https://www.cedarbrooksauna.com/planning-your-sauna.html" target="_blank">Cedarbrook Sauna: Planning Guide (Archive)</a></li>
-    </ul>
-
-    <h3>Paneling &amp; Lumber (Portland Area)</h3>
-    <ul>
-      <li><a href="https://www.lakesidelumber.com/" target="_blank">Lakeside Lumber</a> (recommended)</li>
-      <li><a href="https://www.mrplywoodinc.com/" target="_blank">Mr. Plywood</a></li>
-      <li><a href="https://www.customcedarproductsinc.com/" target="_blank">Custom Cedar Products</a></li>
-      <li><a href="https://www.materialforless.com/product/cedar/" target="_blank">BMR / Material For Less</a></li>
-      <li>Facebook Marketplace and Craigslist for cedar T&amp;G from local sellers</li>
-    </ul>
-
-    <h3>Technique References</h3>
-    <ul>
-      <li><a href="https://www.cedarbarrelsaunas.com/framing-a-sauna-room.html" target="_blank">Framing a Sauna Room</a></li>
-      <li><a href="https://www.cedarbarrelsaunas.com/sauna-heat-foil-sauna-aluminum-vapor-foil.html" target="_blank">Vapor Barrier Installation</a></li>
-      <li><a href="https://wett-inspection.com/building-heat-shield/" target="_blank">Building a Heat Shield</a></li>
-      <li><a href="https://www.saunatimes.com/building-a-sauna/build-your-own-sauna-door/" target="_blank">Saunatimes: Build Your Own Sauna Door</a></li>
-      <li><a href="https://outdoorsaunabuildmndiy.blogspot.com/2016/03/building-sauna-door-from-scratch.html" target="_blank">Building a Sauna Door From Scratch</a></li>
     </ul>
   </section>
 
@@ -1278,15 +1209,6 @@
     if (e.key === 'Escape') closeLightbox();
     if (e.key === 'ArrowLeft') navigate(-1);
     if (e.key === 'ArrowRight') navigate(1);
-  });
-
-  // Temp filename labels for feedback
-  allItems.forEach(img => {
-    const fname = decodeURIComponent(img.src.split('/').pop());
-    const label = document.createElement('span');
-    label.className = 'photo-label';
-    label.textContent = fname;
-    img.closest('.img-wrap').appendChild(label);
   });
 
   // Smooth scroll offset for sticky nav
