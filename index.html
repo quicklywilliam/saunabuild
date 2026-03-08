@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <base href="/saunabuild/">
 <title>Building a Wood-Fired Sauna — A Complete Guide</title>
 <link rel="icon" href="data:,">
@@ -51,7 +52,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100vh;
+    height: 100%;
     z-index: 0;
     overflow: hidden;
   }
@@ -64,6 +65,7 @@
     position: sticky;
     top: 0;
     height: 100vh;
+    height: 100dvh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -180,16 +182,22 @@
   .toc a {
     color: var(--text-muted);
     text-decoration: none;
-    font-size: 0.75rem;
-    padding: 0.6rem 0.85rem;
+    font-size: 0.95rem;
+    padding: 0.3rem 0.65rem;
     white-space: nowrap;
     transition: color 0.2s;
     letter-spacing: 0.03em;
     border-bottom: 2px solid transparent;
   }
-  .toc a:hover {
+  .toc a.active {
     color: var(--warm-accent);
     border-bottom-color: var(--warm-accent);
+  }
+  @media (hover: hover) {
+    .toc a:hover {
+      color: var(--warm-accent);
+      border-bottom-color: var(--warm-accent);
+    }
   }
 
   /* ─── Content ─── */
@@ -199,6 +207,7 @@
   .section {
     padding: 6rem 0;
     border-bottom: 1px solid var(--warm-border);
+    scroll-margin-top: 3.5rem;
   }
   .section:last-child { border-bottom: none; }
 
@@ -522,7 +531,69 @@
     .hero-meta { flex-direction: column; gap: 0.75rem; }
     .photo-grid { grid-template-columns: 1fr; }
     .rendering-grid { grid-template-columns: 1fr; }
-    .toc a { padding: 1rem 0.65rem; font-size: 0.7rem; }
+    .toc a { padding: 0.15rem 0.55rem; font-size: 0.95rem; }
+
+    /* Mobile hero: image bottom-aligned with fade */
+    .hero {
+      height: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      min-height: 100dvh;
+    }
+    .hero-bg {
+      position: relative;
+      width: 100%;
+      height: auto;
+      overflow: visible;
+    }
+    .hero-bg img {
+      width: 100%;
+      height: auto;
+      object-fit: contain;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 25%);
+    }
+    .hero-content {
+      position: relative;
+      height: auto;
+      padding: 1.5rem 2rem 2rem;
+    }
+    .hero-content::before { display: none; }
+    .hero h1 {
+      opacity: 1 !important;
+      transform: none !important;
+      white-space: normal;
+      font-size: 1.6rem;
+      text-shadow: none;
+    }
+    .hero-subtitle {
+      opacity: 1 !important;
+      transform: none !important;
+      font-size: 1rem;
+      text-shadow: none;
+      margin-bottom: 1rem;
+    }
+    .scroll-hint { display: none; }
+    .hero-badge { display: none; }
+    .hero-meta { text-shadow: none; }
+
+    /* Mobile nav: static in flow, JS switches to fixed */
+    .toc {
+      position: static;
+    }
+    .toc.fixed {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+    }
+    .toc-placeholder {
+      display: none;
+    }
+    .toc-placeholder.active {
+      display: block;
+    }
   }
 </style>
 </head>
@@ -532,8 +603,8 @@
 <header class="hero">
   <div class="hero-bg"><img src="photos/IMG_0979.jpeg" alt="Sauna interior"></div>
   <div class="hero-content">
-    <h1>Building a Wood-Fired Sauna</h1>
-    <p class="hero-subtitle">Converting a woodshed in Mount Hood National Forest into a traditional Finnish-style sauna.</p>
+    <h1>Building a Sauna</h1>
+    <p class="hero-subtitle">A detailed construction journal for a wood-fired sauna in Mount Hood National Forest</p>
     <div class="scroll-hint">
       <span>Scroll to read</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
@@ -543,9 +614,9 @@
 
 <div class="page-body">
 <!-- ═══════════ NAV ═══════════ -->
-<nav class="toc">
+<nav class="toc" id="toc">
   <div class="toc-inner">
-    <a href="#overview">Overview</a>
+    <a href="#Intro">Intro</a>
     <a href="#design">Design</a>
     <a href="#demo">Foundation</a>
     <a href="#framing">Framing</a>
@@ -561,19 +632,23 @@
     <a href="#resources">Resources</a>
   </div>
 </nav>
+<div class="toc-placeholder" id="toc-placeholder"></div>
 
 <!-- ═══════════ CONTENT ═══════════ -->
 <main class="content">
 
   <!-- 01. OVERVIEW -->
   <section class="section" id="overview">
-    <span class="section-number">01 — Project Overview</span>
-    <h2>From Shed to Hot Room</h2>
-    <p class="section-intro">This guide documents the complete conversion of a small woodshed into a traditional Finnish-style wood-burning sauna. The structure includes a hot room, a changing area, and a small storage space — all built within an existing footprint of roughly 10' x 12'.</p>
-    <p>The project was a DIY build, tackling each phase over the course of several months. The stove is an <a href="https://ikisaunas.com/iki-wood-burning-heaters/#IKI-Original">IKI Plus</a> — a high-quality Finnish wood-burning sauna stove known for its exceptional löyly. The interior is clad in western red cedar tongue-and-groove paneling. The walls and ceiling are insulated with Rockwool, however the floor was built in a traditional manner using open, gapped cedar decking. The benches are also built from cedar, harvested and milled by a neighbor.</p>
-    <p>The sauna room itself is approximately 6' x 9'10", with 7'6" ceilings, with an L-shaped bench layout — an upper bench at 42" and lower bench at 22". Two windows look out onto the forest and nearby river.</p>
+    <span class="section-number">01 — Introduction</span>
+    <h2>A Sacred Space in an old woodshed</h2>
+    <p class="section-intro">On a river in Mount Hood National Forest, tucked in amongst the cedar and doug firs, sits a very small cabin. Nearby, an even smaller woodshed was moldering away, waiting. </p>
+      <p>I first began visiting the forests of the pacific Northwest 25 years ago, and ever since I have been continually drawn back. Sometimes I come seeking adventure, sometimes quiet, sometimes simply the feeling of awe that comes standing among the big trees. </p>
+      <p>Sometime later, I discovered the ritual and experience of sauna. I began seeking out sauna everywhere I went. Around each, I invariably found a community willing to step outside time together, to drop into the awareness of their bodies. With this awareness came also a heightened connection to the natural world — whether it was the fjord in the middle of Oslo, a remote beach in Ireland, or deep in the woods of British Columbia. It was only a matter of time before I began dreaming of creating such a space back home.</p>
+    <p>The project was a DIY build, done slowly over the course of nearly a year. It was done mostly alone, offering solitude and an outlet for the big feelings accompanying a difficult chapter of my life. However, it was conceived from the begining as a space for building and strengthening community. Many loved ones contributed. Family members helped swing hammers and operate unfamiliar saws. A close friend and veteran sauna-builder offered wisdom and encouragement. Another friend created a beautiful heat shield that became a central element of the design. A neighbor milled the cedar he felled nearby.</p>
+    <p>When I told people what I was up to, more than a few wanted to know more. Some were just curious, but many harbor similar dreams. It is my hope that this journal will help inspire and inform such dreamers. <strong>Create the space, gather the people, light the fire.</strong></p>
     <div class="photo-grid">
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0511.jpeg" alt="Supplies" loading="lazy"></div><figcaption>Supplies</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_9076.jpeg" alt="The cabin in the forest" loading="lazy"></div><figcaption>The shed as I found it</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0511.jpeg" alt="Supplies" loading="lazy"></div><figcaption>The first of many, many loads in my tiny car</figcaption></figure>
     </div>
   </section>
 
@@ -583,10 +658,12 @@
     <h2>Design</h2>
     <div class="rendering-grid"><img src="renderings/rendering-exterior.jpg" alt="Exterior rendering" class="full"></div>
     <p class="section-intro">The design of the sauna started with its most central elements — the hearth, and the natural view behind it. I wanted the entire focus of the room to be on these two elements, which meant determining where to place the windows and then working backwards from here.</p>
-    <h3>Benches</h3>
+    <h3>Dividing the space</h3>
+        <p>The existing structure is 10' x 12'. I divided this space into the hot room, a small changing area, and a storage space. The hot room is approximately 6' x 9'10", with 7'6" ceilings, with an L-shaped bench layout — an upper bench at 42" and lower bench at 22". Two windows look out onto the forest and nearby river.</p>
+        <h3>Stove Selection</h3>
+    <p><a href="https://ikisaunas.com">IKI</a> stoves are renowned for their löyly thanks to their unique helical chimney and generous rock capacity. Another advantage of all that rock is that it reduces required fire clearance — allowing the stove to be tucked tight into the corner, right where I wanted it. However, the whole stove weighs almost a ton, which added some complexity to the structural work.</p>
+        <h3>Benches</h3>
     <p>The benches are arrange in an L-shape, with 24" deep primary benches at the back of the sauna and a set of smaller smaller benches the side wall. Adding side benches offers a bit of extra seating when there are guests.</p>
-    <h3>Stove Selection</h3>
-    <p>IKI stoves renowned for their steam quality thanks to their unique helical chimney and generous rock capacity. Another advantage of all that rock is that it reduces required fire clearance — allowing the stove to be tucked tight into the corner, right where I wanted it. However, the whole stove weighs almost a ton, which added some complexity to the structural work.</p>
     <div class="rendering-grid">
       <img src="renderings/rendering-interior.jpg" alt="Interior rendering">
       <img src="renderings/rendering-floorplan.jpg" alt="Floor plan rendering">
@@ -1142,7 +1219,7 @@
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <div class="footer">
-  <p>Built with cedar, stone wool, and determination. 2025-2026.</p>
+  <p>Built slowly in 2025-2026.</p>
 </div>
 
 <!-- ═══════════ LIGHTBOX ═══════════ -->
@@ -1161,25 +1238,63 @@
   const heroSub = document.querySelector('.hero-subtitle');
   const scrollHint = document.querySelector('.scroll-hint');
   const heroHeight = document.querySelector('.hero').offsetHeight;
+  const toc = document.getElementById('toc');
+  const pageBody = document.querySelector('.page-body');
+  const tocShowY = pageBody ? pageBody.offsetTop - 50 : heroHeight;
+  const isMobile = window.matchMedia('(max-width: 640px)').matches;
+
+  // Mobile: switch nav between static and fixed
+  const tocPlaceholder = document.getElementById('toc-placeholder');
+  let tocNaturalTop = toc.getBoundingClientRect().top + window.scrollY;
+  let tocFixed = false;
 
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
-    const vh = window.innerHeight;
-    const fadeZone = vh * 0.8;
-    // Progress 0→1 over first 80vh of scroll
-    const progress = Math.min(scrollY / fadeZone, 1);
-    // h1 fades in first, subtitle follows
-    const h1Progress = Math.min(progress * 2.5, 1);
-    const subProgress = Math.max((progress - 0.25) / 0.5, 0);
-    heroH1.style.opacity = h1Progress;
-    heroH1.style.transform = `translateY(${20 * (1 - h1Progress)}px)`;
-    heroSub.style.opacity = Math.min(subProgress, 1);
-    heroSub.style.transform = `translateY(${20 * (1 - Math.min(subProgress, 1))}px)`;
-    // Fade out scroll hint
-    if (scrollHint) scrollHint.style.opacity = 1 - progress * 3;
-    // Hide fixed bg once hero is scrolled past
-    heroBg.style.display = scrollY > heroHeight ? 'none' : '';
+
+    if (!isMobile) {
+      const vh = window.innerHeight;
+      const fadeZone = vh * 0.8;
+      const progress = Math.min(scrollY / fadeZone, 1);
+      const h1Progress = Math.min(progress * 2.5, 1);
+      const subProgress = Math.max((progress - 0.25) / 0.5, 0);
+      heroH1.style.opacity = h1Progress;
+      heroH1.style.transform = `translateY(${20 * (1 - h1Progress)}px)`;
+      heroSub.style.opacity = Math.min(subProgress, 1);
+      heroSub.style.transform = `translateY(${20 * (1 - Math.min(subProgress, 1))}px)`;
+      if (scrollHint) scrollHint.style.opacity = 1 - progress * 3;
+      heroBg.style.display = scrollY > heroHeight ? 'none' : '';
+    } else {
+      const shouldFix = scrollY > tocNaturalTop;
+      if (shouldFix !== tocFixed) {
+        tocFixed = shouldFix;
+        if (shouldFix) {
+          tocPlaceholder.style.height = toc.offsetHeight + 'px';
+          tocPlaceholder.classList.add('active');
+          toc.classList.add('fixed');
+        } else {
+          tocPlaceholder.classList.remove('active');
+          toc.classList.remove('fixed');
+        }
+      }
+    }
   }, { passive: true });
+
+  // Active section tracking
+  const tocLinks = document.querySelectorAll('.toc a[href^="#"]');
+  const sections = Array.from(tocLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+
+  function updateActiveLink() {
+    const threshold = toc.offsetHeight + 60;
+    let activeId = '';
+    for (const section of sections) {
+      if (section.getBoundingClientRect().top <= threshold) activeId = section.id;
+    }
+    tocLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + activeId);
+    });
+  }
+  window.addEventListener('scroll', updateActiveLink, { passive: true });
+  updateActiveLink();
 
   // Lightbox with prev/next
   const lightbox = document.getElementById('lightbox');
