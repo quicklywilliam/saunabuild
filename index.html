@@ -83,6 +83,7 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(to top, rgba(10, 8, 5, 0.85) 0%, rgba(10, 8, 5, 0.3) 40%, transparent 70%);
+    opacity: var(--hero-overlay-opacity, 0.3);
     pointer-events: none;
   }
 
@@ -115,6 +116,7 @@
   }
   .hero-subtitle {
     font-size: 1.25rem;
+    font-style: italic;
     color: var(--text-secondary);
     max-width: 650px;
     margin-bottom: 3rem;
@@ -574,17 +576,22 @@
     .hero-bg {
       position: relative;
       width: 100%;
+      min-height: 99dvh;
       overflow: hidden;
+      display: flex;
+      align-items: flex-end;
     }
     .hero-bg video {
-      width: 100%;
-      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%);
-      mask-image: linear-gradient(to bottom, transparent 0%, black 25%);
+      width: 190%;
+      margin-left: -75%;
+      -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 95%, transparent 100%);
+      mask-image: linear-gradient(to bottom, transparent 0%, black 25%, black 95%, transparent 100%);
     }
     .hero-content {
       position: relative;
       height: auto;
-      padding: 1.5rem 2rem 2rem;
+      padding: 1.5rem 2rem 1rem;
+      background: linear-gradient(to bottom, var(--warm-bg), color-mix(in srgb, var(--warm-bg) 97%, var(--warm-accent)));
     }
     .hero-content::before { display: none; }
     .hero h1 {
@@ -593,13 +600,15 @@
       white-space: normal;
       font-size: 1.6rem;
       text-shadow: none;
+      margin-bottom: 0.9rem;
     }
     .hero-subtitle {
       opacity: 1 !important;
       transform: none !important;
       font-size: 1rem;
+      font-style: italic;
       text-shadow: none;
-      margin-bottom: 1rem;
+      margin-bottom: 0.8rem;
     }
     .scroll-hint { display: none; }
     .hero-badge { display: none; }
@@ -608,6 +617,7 @@
     /* Mobile nav: static in flow, JS switches to fixed */
     .toc {
       position: static;
+      border-top: 1px solid var(--warm-border);
     }
     .toc.fixed {
       position: fixed;
@@ -633,7 +643,7 @@
     <h1>Creating a Sauna</h1>
     <p class="hero-subtitle">A detailed construction journal for a wood-fired sauna in Mount Hood National Forest</p>
     <div class="scroll-hint">
-      <span>Scroll to read</span>
+      <span>Read on…</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
     </div>
   </div>
@@ -1266,6 +1276,7 @@
 <script>
   // Hero scroll-fade effect
   const heroBg = document.querySelector('.hero-bg');
+  const heroContent = document.querySelector('.hero-content');
   const heroH1 = document.querySelector('.hero h1');
   const heroSub = document.querySelector('.hero-subtitle');
   const scrollHint = document.querySelector('.scroll-hint');
@@ -1293,6 +1304,7 @@
       heroH1.style.transform = `translateY(${20 * (1 - h1Progress)}px)`;
       heroSub.style.opacity = Math.min(subProgress, 1);
       heroSub.style.transform = `translateY(${20 * (1 - Math.min(subProgress, 1))}px)`;
+      heroContent.style.setProperty('--hero-overlay-opacity', 0.5 + 0.5 * progress);
       if (scrollHint) scrollHint.style.opacity = 1 - progress * 3;
       heroBg.style.display = scrollY > heroHeight ? 'none' : '';
     } else {
