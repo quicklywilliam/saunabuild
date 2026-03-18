@@ -46,6 +46,8 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  .hero-device-hint { display: none; }
+
   /* ─── Hero ─── */
   .hero {
     height: 200vh;
@@ -612,6 +614,19 @@
     }
     .scroll-hint { display: none; }
     .hero-badge { display: none; }
+    .hero-device-hint {
+      display: block;
+      background: var(--warm-accent-glow);
+      border-left: 3px solid var(--warm-accent);
+      border-radius: 0 8px 8px 0;
+      padding: 0.75rem 1rem;
+      margin-top: 1rem;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      font-style: normal;
+      text-align: left;
+    }
     .hero-meta { text-shadow: none; }
 
     /* Mobile nav: static in flow, JS switches to fixed */
@@ -642,6 +657,7 @@
   <div class="hero-content">
     <h1>Creating a Sauna</h1>
     <p class="hero-subtitle">A detailed construction journal for a wood-fired sauna in Mount Hood National Forest</p>
+    <div class="hero-device-hint"><div class="callout-title">A notice to the reader</div>For a more immersive experience, I recommend reading this journal on a device with a larger screen if you can.</div>
     <div class="scroll-hint">
       <span>Read on…</span>
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
