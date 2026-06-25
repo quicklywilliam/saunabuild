@@ -346,7 +346,16 @@
     border-left: 1px solid var(--warm-border);
     margin-left: 1rem;
   }
-  .step:last-child { border-left-color: transparent; }
+  .step:last-of-type { border-left-color: transparent; }
+  .step:last-of-type::after {
+    content: '';
+    position: absolute;
+    left: -1px;
+    top: 0;
+    width: 1px;
+    height: 1.5rem;
+    background: var(--warm-border);
+  }
   .step::before {
     content: counter(step-counter);
     position: absolute;
@@ -717,6 +726,7 @@
         <p>The existing structure is 10' x 12'. I divided this space into the hot room, a small changing area, and a storage space. The hot room is approximately 6' x 9'10", with 7'6" ceilings (8' ceilings would have been nice, if they had fit).</p>
         <h3>Stove selection</h3>
     <p><a href="https://ikisaunas.com" target="_blank">IKI</a> stoves are renowned for their löyly thanks to their unique helical chimney and generous rock capacity. Another advantage of all that rock is that it reduces required fire clearance, allowing the stove to be tucked tight into the window corner, right where I wanted it. However, the loaded stove weighs almost a thousand pounds, which added some complexity to the structural work.</p>
+    <p>Given the mountain setting and my preference for using a traditional floor design (see <a href="#floor">below</a>), I chose to upsize my stove. An Iki Mini might have sufficed, but I chose the full-size Iki Original Plus. I'm glad I did. It's an absolute joy to have a stove that is always capable of providing abundant löyly and heat!</p>
         <h3>Benches</h3>
     <p>I orginally designed benches in an L-shaped layout to maximize seating. However, during the build process, I decided to skip the L benches in favor of a simple set of benches. I wasn't convinced adding the L would add much seating, and in my use so far this has been true: the sauna can comfortably seat 4 or 5 people on the 6' upper and lower benches. I can always add L benches later, if they are wanted.</p>
     <p>Originally I planned the upper bench to be hung at 42" and the lower at 22". Here again, I knew these might change and planned to determine the final heights experimentally once the sauna was opperable. Using temporary benches for the first few saunas, I determined that the best balance of heat, löyly and comfort put the upper bench at 40" and the bottom at 24". I built a wide, 8" stool to act as a footstool and step up to the lower bench. </p>
@@ -758,7 +768,8 @@
   <section class="section" id="framing">
     <span class="section-number">04 — Framing &amp; Electrical</span>
     <h2>Defining the room</h2>
-    Once my floor was fixed, it was time to divide the shed into three sections: hot room, changing room and storage area. I dropped the ceilings in both the hot room and changing room. I also did my electrical work at this stage.
+    <p class="section-intro">
+    Once my floor was fixed, it was time to divide the shed into three sections: hot room, changing room and storage area. I dropped the ceilings in both the hot room and changing room. I also did my electrical work at this stage.</p>
     <div class="steps">
       <div class="step">
         <h4>Framing partition walls</h4>
@@ -803,12 +814,9 @@
         <p>I left 6" of wire in front of each box and stapled the cable within 6" of every box. One wire per slot in the back of each box, with the ground wire attached to the grounding screw on the metal boxes. I used metal boxes inside the hot room.</p>
       </div>
     </div>
-    <div class="callout">
-      <div class="callout-title">Lesson learned</div>
-      <p>I forgot to account for the full finished wall assembly thickness (paneling + strapping + vapor barrier) when mounting my light box, and it was a pain to fix later. The boxes need to be flush with the finished surface.</p>
-    </div>
     <div class="photo-grid">
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1269.jpeg" alt="Electrical box installation" loading="lazy"></div><figcaption>Electrical box installation</figcaption></figure>
+            <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0605.jpeg" alt="Lighting detail" loading="lazy"></div><figcaption>I messed up and didn't install the box far enough out to accomidate the entire wall assembly. Luckily I was able to find an extension ring that closed the gap.</figcaption></figure>
     </div>
   </section>
 
@@ -816,7 +824,8 @@
   <section class="section" id="floor">
     <span class="section-number">06 — Sauna Floor</span>
     <h2>A simple, classic design</h2>
-    <p class="section-intro">Gapped cedar deck boards are a traditional sauna construction method that offers built-in ventilation and drainage. They're a great fit for wood-fired saunas with plenty of heat and a need for air flow to feed the stove.</p>
+    <p class="section-intro">
+      Unlike other saunas, internal wood-fired saunas constantly bring in fresh outside air to feed the fire. This means you need to provide plenty of ventilation, located low in your sauna. Because of this, traditional saunas often have uninsulated floors built from intentionally gapped deck boards. This design offers a simple solution to both ventilation and drainage.</p>
     <div class="steps">
       <div class="step">
         <h4>Installing hardware cloth</h4>
@@ -841,7 +850,8 @@
   <section class="section" id="windows">
     <span class="section-number">08 — Windows</span>
     <h2>A complex, classic(ish) design</h2>
-    <p class="section-intro">The windows were a bit of a sticky wicket. They needed to be engineered to withstand a sauna (tempered glass with high-temperature silicone sealant is a must), but also wood-framed and classicly styled to meet federal historic preservation standards. What I ended up doing was simply using two windows in each opening: a sealed double-wall unit from <a href="https://www.onedayglass.com" target="_blank">One Day Glass</a> on the inside, and a simple, traditional barn sash window on the outside. A "hot window" and a "cold window", if you will. This made the install more complex but was far cheaper than having someone make custom windows that meet all those requirements. To make things easier on myself, I left installing the "hot window" until after the paneling was complete.</p>
+    <p class="section-intro">The windows were a bit of a sticky wicket. Because they are directly behind the stove, they needed to be engineered to withstand heat and the occassional splash of water. Tempered glass with high-temperature silicone sealant was a must. However, to meet the historic preservation standards of the National Forest, they also needed to be wood-framed and classicly styled. I could not find a window product that meets all of these requirements.</p>
+      <p class="section-intro">What I ended up doing was simply using two windows in each opening: a sealed double-wall unit from <a href="https://www.onedayglass.com" target="_blank">One Day Glass</a> on the inside, and a simple, traditional barn sash window on the outside. A "hot window" and a "cold window", if you will. This made the install more complex but was far cheaper than having someone make custom windows. To make things easier on myself, I left installing the "hot window" until after the paneling was complete.</p>
     <h3>Installation</h3>
     <div class="steps">
            <div class="step">
@@ -891,7 +901,8 @@
   <!-- 09. INSULATION -->
   <section class="section" id="insulation">
     <span class="section-number">09 — Insulation &amp; Vapor Barrier</span>
-    <h2>Retaining the heat</h2>
+        <h2>Retaining the heat</h2>
+  <p class="section-intro">Although I favored a traditional design for the floor, the walls and ceiling are another matter. Uninsulated saunas can work, but they take longer to heat up and more feeding to keep hot. In addition, because there is no vapor barrier, they work best when your walls are a single layer where moisture cannot be trapped in the walls. For a stick-framed struture like my shed, it's best to use modern construction methods when it comes to insulation!</p>
     <h3>Insulation</h3>
     <p class="section-intro">I used rockwool insulation throughout. It's fire-resistant, moisture-tolerant, and handles extreme sauna temperatures without degrading. I installed <strong>R-15 (3-1/2" thick)</strong> in the walls and <strong>R-23 (5-1/2" thick)</strong> for the ceiling. Standard fiberglass insulation has lower R-values for a given thickness and is not rated for the high temperatures and moisture of a sauna.</p>
     <div class="steps">
@@ -930,7 +941,7 @@
     </div>
     <div class="photo-grid">
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0271.jpeg" alt="Aluminum vapor barrier" loading="lazy"></div><figcaption>First course is horitizontal</figcaption></figure>
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0276.jpeg" alt="Vapor barrier detail" loading="lazy"></div><figcaption>Vapor barrier complete</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0276.jpeg" alt="Vapor barrier detail" loading="lazy"></div><figcaption>Sauna or spaceship?</figcaption></figure>
     </div>
   </section>
 
@@ -939,7 +950,7 @@
     <span class="section-number">12 — Paneling</span>
     <h2>Finishing the walls</h2>
     <h3>Mind the gap</h3>
-    <p class="section-intro">Installing furring strips over the vapor barrier are not a critical component of sauna construction, but they are a good idea unless space is extremely limited. Furring creates an air gap, allowing moisture that condenses on the vapor barrier to run down the wall instead of eventually rotting the wood paneling. They also help eliminate irregularities in the framing to provide an even nailing surface for the cedar paneling. Finally, air gaps are insulators.</p>
+    <p class="section-intro">Installing furring strips over the vapor barrier is not a critical component of sauna construction, but they are a good idea unless space is extremely limited. Furring creates an air gap, allowing moisture that condenses on the vapor barrier to run down the wall instead of eventually rotting the wood paneling. They also help eliminate irregularities in the framing to provide an even nailing surface for the cedar paneling. Finally, air gaps are insulators.</p>
     <div class="steps">
       <div class="step">
         <h4>Installing wall strapping</h4>
@@ -1003,7 +1014,6 @@
     <h3>Wall Lighting</h3>
     <p class="section-intro">After considering under bench lighting and a range of other options, I ended up choosing a very simple lighting system. I wanted the space to stay fairly dim and largely lit by firelight. I installed a simple dimmable lamp on the wall, with a <a href="https://www.saunaplace.com/products/cedar-light-shade-7-1-2w-x-10-1-4h?srsltid=AfmBOooSZKGWI1ibuWHVNPLIWh3EeOwuHqe0qeNBw-qQYQU9mBgW1HEJ" target="_blank">beautiful cedar covering</a>.</p>
     <div class="photo-grid">
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0605.jpeg" alt="Lighting detail" loading="lazy"></div><figcaption>I messed up and didn't install the box far enough out to accomidate the entire wall assembly. Luckily I was able to find an extension ring that closed the gap.</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0706.jpeg" alt="Sauna wall light" loading="lazy"></div><figcaption>Wall light with covering</figcaption></figure>
     </div>
   </section>
@@ -1012,32 +1022,33 @@
   <section class="section" id="stove">
     <span class="section-number">13 — Stove &amp; Heat Shield</span>
     <h2>The heart of the sauna</h2>
-        <h3>Installing the stove</h3>
-    <p class="section-intro">Installing the stove was a complicated process I wish I had figured out earlier (see the section above on Chimney Placement). Because I was behind schedule at this point, I decided to hire a technician to do the actual chimney install. There are <a href="https://outdoorsaunabuildmndiy.blogspot.com/2015/11/installing-wood-stove-chimney-and.html" target="_blank">many</a> <a href="https://www.youtube.com/watch?v=aRL9xGoSGic" target="_blank">good</a> guides out there for those who want to DIY.</p>
-    <p>After the chimney was installed, I finally installed those last few ceiling and wall boards.</p>
-            <div class="callout warning">
-      <div class="callout-title">Burn off</div>
-      <p>I built a quick, hot fire in the stove outside the sauna before installing it, to burn off any residue from the manufacturing process.</p>
-    </div>
-     <div class="photo-grid">
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0702.jpeg" alt="Stove in finished room" loading="lazy"></div><figcaption>Stove installed, paneling is finally done!</figcaption></figure>
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0869.jpeg" alt="Chimney through ceiling" loading="lazy"></div><figcaption>Chimney support through ceiling</figcaption></figure>
-    </div>
-
+    <p class="section-intro">At last it was almost time to install the stove, which had now been sitting in my dining room for months. But first…</p>
+     
     <div class="interlude">
       <div class="interlude-title">A fishy interlude</div>
-      <p>One fall, I walked down to the river. The first thing I saw was a dead salmon staring back at me. It was lodged on a rock, its mouth agape and body torn. It had completely worn itself out. Then, in a quiet part of the river, I spotted a large, dancing shadow. Another salmon, catching his breath. As I watched, he resumed his swim up the river. The river was shallow here, and much of the fish's body was above the surface. I could see him clearly now, his body was taterred and his movements deliberate. He looked unfathomably tired, and not the least bit deterred.</p>
-      <p>In that moment, this fish's will spoke very deeply to me. I thought about my own struggles, which were as nothing to his. And yet nothing was wrong. He was doing exactly what he was supposed to do. I imagined my own journey up river. The struggles remained, but felt lighter. There was no agony, I was simply on my path.</p>
-      <p>In my head, this fish is forever swimming up the river. I turn to him often, and he never fails to move me.</p>
+      <p>One fall, I walked down to the river and the first thing I saw was a dead salmon, staring back at me. It was lodged on a rock, its mouth agape and body torn. It had completely worn itself out. Then, in a quiet part of the river, I spotted a large, dancing shadow. Another salmon, catching his breath. As I watched, he resumed his swim up the river. The river was shallow here, and much of the fish's body was above the surface. I could see him clearly now, his body was taterred and his movements deliberate. He looked unfathomably tired, and not the least bit deterred.</p>
+      <p>In that moment, this fish's will spoke very deeply to me. I thought about my own struggles, which were as nothing to his. And yet for him, nothing was wrong. He was doing exactly what he was supposed to do. I imagined my own journey up river. The struggles remained, but felt lighter. There was no agony, I was simply on my path.</p>
+      <p>In my mind, I return to this fish often. He is forever making his way up the river.</p>
     </div>
             <h3>Fabricating the heat shield</h3>
             <p>Given the central role of the stove corner, I knew I wanted something special for the heat shield. I also wanted to reduce the required clearance as far as possible. A friend of mine runs a <a href="http://moltenember.com" target="_blank">metal fabrication business</a>, so I commisioned him to design and fabricate a custom heat shield. Somehow, he managed to capture my feelings perfectly. The river and salmon in the design speak to me just as they did in the original encounter.</p>
-        <p>The system consists of 3 pieces - a sheet metal panel mounted with a 1" air gap in front of the cement board, the decorative layer mounted in front of it, and a steel plate for floor protection.</p>
+        <p>The system consists of three pieces - a sheet metal panel mounted with a 1" air gap in front of the cement board, the decorative layer mounted in front of it, and a steel plate for floor protection.</p>
        <div class="photo-grid">
       <figure class="gallery-item"><div class="img-wrap"><video src="movies/heatshield.mp4" poster="movies/heatshield_poster.jpg" playsinline muted loop controls preload="metadata"></video></div><figcaption>Fabricating the heat shield</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/PXL_20260107_001222817.jpeg" alt="Heat shield complete" loading="lazy"></div><figcaption>The decorative layer was oxidized prior to install</figcaption></figure>
     </div>
     <figure class="section-hero gallery-item"><img src="photos/IMG_0885.jpeg" alt="Heat shield and floor protection installed" loading="lazy"><figcaption>The finished product</figcaption></figure>
+    <h3>Installing the Chimney</h3>
+                <div class="callout warning">
+      <div class="callout-title">Burn off</div>
+      <p>I built a quick, hot fire in the stove outside the sauna before installing it, to burn off any residue from the manufacturing process.</p>
+    </div>
+    <p class="section-intro">Installing the stove was a complicated process I wish I had figured out earlier (see the <a href="#floor">section above</a> on Chimney Placement). Because I was behind schedule at this point, I hired a technician to do the actual chimney install. There are <a href="https://outdoorsaunabuildmndiy.blogspot.com/2015/11/installing-wood-stove-chimney-and.html" target="_blank">many</a> <a href="https://www.youtube.com/watch?v=aRL9xGoSGic" target="_blank">good</a> guides out there for those who want to DIY.</p>
+    <p>After the chimney was installed, I finally installed those last few ceiling and wall boards.</p>
+    <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0702.jpeg" alt="Stove in finished room" loading="lazy"></div><figcaption>Stove installed, paneling is finally done!</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0869.jpeg" alt="Chimney through ceiling" loading="lazy"></div><figcaption>Chimney support through ceiling</figcaption></figure>
+    </div>
 
     <h3>Ventilation</h3>
     <p class="section-intro">Besides staring deeply into the flames, one of my favorite things about a wood-fired sauna is that it brings a lot of air movement into the room. This creates an entirely different quality of heat. It feels like the heat washes over you. It has none of that stifling, stuffy feel common in electric saunas without proper ventilation.</p>
@@ -1151,25 +1162,48 @@
   <section class="section" id="benches">
     <span class="section-number">17 — Benches</span>
     <h2>Measure once… then sauna</h2>
-    <p class="section-intro">Lumber for the benches was locally sourced western red cedar, felled by a neighbor, who had already air-dried for two years before we milled it. I based the bench construction on <a href="https://www.saunatimes.com/building-a-sauna/sauna-benches/" target="_blank">this guide</a>, with a few modifications.</p>
-        <div class="card">
-      <div class="card-label">Bench Layout</div>
-      <p>Working backwards from my ceiling height, I knew I needed at least ~42" headroom at upper bench. This determined the height of my upper bench, and I worked down from there.</p>
-      <ul>
-        <li><strong>Upper bench:</strong> 40" height, 24" deep on back wall</li>
-        <li><strong>Lower bench:</strong> 24" height, 24" deep with on the back wall. The lower bench is tucked 4" under the upper bench.</li>
-        <li><strong>Hangers:</strong> The benches are supported by 2x4 hangers anchored into the wall.</li>
-      </ul>
-    </div>
+    <p class="section-intro">Building the benches ended up being a somewhat lengthy process. However, this gave me plenty of time to think about the design of my benches –  an important topic! Best of all, I got to do most of that thinking in the sauna.</p>
     <h3>Milling</h3>
-    <p>We milled true 2x4s for the bench stock, carefully selecting clear sections to ensure there are no knots on the seating surface. The stock was still ~20% moisture content after milling, but I figured I could dry them the rest of the way in the sauna!</p>
+    <p>Lumber for the benches was locally sourced western red cedar, felled by a neighbor, who had already air-dried for two years before we milled it. We milled true 2x4s for the bench stock, carefully selecting clear sections to ensure there are no knots on the seating surface. The stock was still ~20% moisture content after milling, but I figured I could dry them the rest of the way in the sauna!</p>
     <div class="photo-grid">
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0832.jpeg" alt="Mill cutting whole tree section" loading="lazy"></div><figcaption>Milling a section of cedar</figcaption></figure>
             <figure class="gallery-item"><div class="img-wrap"><video src="movies/milling.mp4" poster="movies/milling_poster.jpg" playsinline muted loop controls preload="metadata"></video></div><figcaption>Mill in action</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0828.jpeg" alt="Mill cutting 2x material" loading="lazy"></div><figcaption>The 2x4s were plain sawn</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1270.jpeg" alt="Planing 2x material" loading="lazy"></div><figcaption>After milling, every piece needed to be trimmed, planed, rounded and sanded.</figcaption></figure>
     </div>
+
+    <h3>Bench layout</h3>
+    <p class="section-intro">At this point my lumber was drying and I still wasn't sure about the exact height and placement for my benches. And I badly wanted to give this sauna a test run! I cut my milled lumber 1/4" shorter than the room width. I laid these 2x4s across scrap lumber that I had stacked to the right heights. I now had usable benches, and a drying rack for my lumber!</p>
+          <p class="section-intro">After several test runs, I settled on the upper bench at 40" high, the lower bench at 24", and a foot stool at 8".
+<div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0961.jpeg" alt="Prototype benches" loading="lazy"></div><figcaption>Building prototype benches!</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1070.jpeg" alt="Infrared picture of sauna" loading="lazy"></div><figcaption>I used an infared camera (and my body) to help determine the optimal height for my benches.</figcaption></figure>
+    </div>
+      <h3>Bench construction</h3>
+    <p>After several sauna firings and a few weeks of waiting, my lumber was finally dry enough to construct my benches. I based the bench design on <a href="https://www.saunatimes.com/building-a-sauna/sauna-benches/" target="_blank">this guide</a>, but with several modifications. </p>
+    <div class="steps">
+      <div class="step">
+        <h4>Assembling bench frames</h4>
+        <p>The front and back of my bench frames consisted of true 2x4s on end. I then cut 6 20" wide cross pieces to support the planks and ripped them to 2" so the planks would be flush with the top of my frame. These cross pieces were glued and screwed into place, using pocket screws on the front so no fasteners would be visible (or touchable) once installed. I doubled up the cross pieces at the ends of my benches to match my double-wide hangers.</p>
+      </div>
+      <div class="step">
+        <h4>Adding the planks</h4>
+        <p>The planks need to be fastened from below, which made getting them into place a bit tricky. I first laid them on with everything face-up, using shims to maintain consistent gaps between the boards. I then attempted to flip the entire thing over without the planks falling out (I failed). Perhaps a strap would have made it work. After laying out the planks again, I fastened everything from below using 3" wood screws.</p>
+      </div>
+      <div class="step">
+        <h4>Installing</h4>
+        <p>Because I deducted 1/4" from the length of my benches, they slid in readily but without too much play.</p>
+      </div>
+    </div>
+      <div class="photo-grid">
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1277.jpeg" alt="Pocket joints on bench hanger" loading="lazy"></div><figcaption>Pocket joints conceal the fasteners on the front of the bench</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1278.jpeg" alt="Bench frame" loading="lazy"></div><figcaption>The bench frame</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1322.jpeg" alt="Assembled bench" loading="lazy"></div><figcaption>Fully assembled bench</figcaption></figure>
+    </div>
+
     <h3>Bench hangers</h3>
+    <p class="section-intro">I used floating bench hangers to avoid the clutter of having legs below my benches. They look great and make it much easier to sweep out the sauna! 
+    Both benches simply rest on the hangers. I was worried they might not be secure without fastening them into place, but they seem plenty stable as-is. Perhaps I will come up with some sort of latch system I can undo when moving them. The lower hanger runs all the way back on the wall, so the bottom bench can be easily slid back and out of the way.</p>
     <div class="steps">
       <div class="step">
         <h4>Setting heights</h4>
@@ -1187,38 +1221,10 @@
         <h4>Installing side support pieces</h4>
         <p>For additional support at the bench ends, I cut two more side pieces at 22.5" with matching 45° bevels. These were glued and fastened onto the existing side pieces with 3" screws.</p>
       </div>
-      <div class="step">
-        <h4>Prototyping the benches</h4>
-        <p>At this point I had upper hangers but my lumber was still drying and I wasn't sure about the exact height and placement for my lower benches. And I badly wanted to give this sauna a test run! I cut my milled lumber 1/4" shorter than the room width and placed them on the hangers with a scrap piece below to give the final bench height. Then I stacked some short lumber on the floor and laid more 2x4s across for the lower bench. I now had usable benches, and a drying rack for my lumber!</p>
-      </div>
     </div>
         <div class="photo-grid">
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0958.jpeg" alt="Bench from above" loading="lazy"></div><figcaption>Bench side hangers</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0960.jpeg" alt="Bench detail" loading="lazy"></div><figcaption>Finished upper hangers</figcaption></figure>
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0961.jpeg" alt="Completed benches" loading="lazy"></div><figcaption>Building prototype benches!</figcaption></figure>
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1070.jpeg" alt="Infrared picture of sauna" loading="lazy"></div><figcaption>I used an infared camera (and my body) to help determine the optimal height for my benches.</figcaption></figure>
-    </div>
-    <h3>Bench construction</h3>
-    <p>After several sauna sessions of playing with different bench heights, I was finally ready to build my benches.</p>
-    <div class="steps">
-      <div class="step">
-        <h4>Assembling bench frames</h4>
-        <p>The front and back of my bench frames consisted of true 2x4s on end. I then cut 6 20" wide cross pieces to support the planks and ripped them to 2" so the planks would be flush with the top of my frame. These cross pieces were glued and screwed into place, using pocket screws on the front so no fasteners would be visible (or touchable) once installed. I doubled up the cross pieces at the ends of my benches to match my double-wide hangers.</p>
-      </div>
-      <div class="step">
-        <h4>Adding the planks</h4>
-        <p>The planks need to be fastened from below, which made getting them into place a bit tricky. I first laid them on with everything face-up, using shims to maintain consistent gaps between the boards. I then attempted to flip the entire thing over without the planks falling out (I failed). Perhaps a strap would have made it work. After laying out the planks again, I fastened everything from below using 3" wood screws.</p>
-      </div>
-      <div class="step">
-        <h4>Installing</h4>
-        <p>Because I deducted 1/4" from the length of my benches, they slid in readily but without too much play. The lower hanger runs all the way back on the wall, so the bottom bench can be slid back. I was worried they might not be secure without fastening them into place, but they seem plenty stable as-is. Perhaps I will come up with some sort of latch system I can undo when moving them.</p>
-      </div>
-    </div>
-      <div class="photo-grid">
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1277.jpeg" alt="Pocket joints on bench hanger" loading="lazy"></div><figcaption>Pocket joints conceal the fasteners on the front of the bench</figcaption></figure>
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1278.jpeg" alt="Bench frame" loading="lazy"></div><figcaption>The bench frame</figcaption></figure>
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1322.jpeg" alt="Assembled bench" loading="lazy"></div><figcaption>Fully assembled bench</figcaption></figure>
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1346.jpeg" alt="Installed benches" loading="lazy"></div><figcaption>Benches installed in sauna</figcaption></figure>
+            <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_1346.jpeg" alt="Installed benches" loading="lazy"></div><figcaption>Benches installed in sauna</figcaption></figure>
     </div>
   </section>
 
@@ -1226,7 +1232,7 @@
   <section class="section" id="first-firing">
     <span class="section-number">18 — First Firing</span>
     <h2>A long-awaited moment</h2>
-    After nearly a year of construction (and many years of dreaming and scheming), this was the moment the whole thing was building towards! But first, I needed to move 800 pounds of rocks…
+    After a year of construction (and many more of dreaming and scheming), this was the moment the whole thing was building towards! But first, I needed to move 800 pounds of rocks…
     <h3>Placing the stones</h3>
     <p class="section-intro">With the stove installed and the prototype benches in place, it was time to load up the rocks. Despite my excitement, I took care, placing each stone carefully to cover the furnace and maintain air flow.</p>
     <div class="photo-grid">
@@ -1235,10 +1241,12 @@
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0941.jpeg" alt="Stove and heat shield" loading="lazy"></div><figcaption>Fully loaded stove</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0940.jpeg" alt="IKI loaded" loading="lazy"></div><figcaption>That was a ton of rocks</figcaption></figure>
     </div>
-    <h3>The first firing</h3>
-    <p>The light was fading as I fed the fire and the sauna slowly got up to temperature. Just as it reached 190° a soft rain began to fall. Climbing up onto the benches for my first sweat, I was overwhelmed by my emotions: pride at what I'd built, gratitude for what I had, and even a bit of sadness for a long-held dreamt of project finally coming to its close. Plunging into the wintery river, I was already dreaming of the many moments others and I would surely share in this special space. As excited as I was to share it, it felt perfect to be alone and let these emotions wash over me with the icy waters and the gentle heat of the sauna.</p>
+      <div class="interlude">
+      <div class="interlude-title">The first firing</div>
+      <p>The light was fading as I fed the fire and the sauna slowly got up to temperature. Just as it reached 190° a soft rain began to fall. Climbing up onto the benches for my first sweat, I was overwhelmed by my emotions: pride at what I'd built, gratitude for what I had, and even a bit of sadness for a long-dreamt-of project finally coming to its close. Plunging into the wintery river, I was already dreaming of the many moments others and I would surely share in this special space. As excited as I was to share it, it felt right to be alone and let these emotions wash over me with the icy waters and the gentle heat of the sauna.</p>
+    </div>
       <div class="photo-grid">
-      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0967%20(1).jpeg" alt="Stove and stones" loading="lazy"></div><figcaption>Bringing the sauna up to temperature</figcaption></figure>
+      <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0967%20(1).jpeg" alt="Stove and stones" loading="lazy"></div><figcaption>Bringing the sauna up to temperature for the first time</figcaption></figure>
       <figure class="gallery-item"><div class="img-wrap"><img src="photos/IMG_0976.jpeg" alt="First firing" loading="lazy"></div><figcaption>In my haste I had to improvise a ladle</figcaption></figure>
     </div>
     <figure class="section-hero gallery-item"><img src="photos/IMG_0978.jpeg" alt="Stove with fire glowing through heat shield" loading="lazy"><figcaption>A special space</figcaption></figure>
